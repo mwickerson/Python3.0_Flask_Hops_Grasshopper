@@ -15,6 +15,27 @@ def help():
     return "Welcome to Grashopper Hops for CPython!"
 
 """
+import numpy as np
+import scipy
+import numpy.linalg
+
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+import matplotlib_inline
+python 
+import pandas as pd
+import sklearn as skl
+import sklearn.linear_model as linm
+import sklearn.cluster as cluster
+import sklearn.neighbors as nb
+import sklearn.neural_network as MLP
+import sklearn.tree
+import sklearn.svm
+import sklearn.ensemble
+"""
+
+
+"""
  _______      ___    ___ ________  _____ ______   ________  ___       _______   ________           ________  ________      
 |\  ___ \    |\  \  /  /|\   __  \|\   _ \  _   \|\   __  \|\  \     |\  ___ \ |\   ____\         |\   __  \|\   ___  \    
 \ \   __/|   \ \  \/  / | \  \|\  \ \  \\\__\ \  \ \  \|\  \ \  \    \ \   __/|\ \  \___|_        \ \  \|\  \ \  \\ \  \   
@@ -96,6 +117,7 @@ def ruled_surface(a: rhino3dm.Point3d,
     edge2 = rhino3dm.LineCurve(c, d)
     return rhino3dm.NurbsSurface.CreateRuledSurface(edge1, edge2)
 
+
 @hops.component(
     "/curve_end_points",
     name="EndPoints",
@@ -133,6 +155,44 @@ def end_points(curve: rhino3dm.Curve):
 def pointsat(curve, t):
     points = [curve.PointAt(item) for item in t]
     return points
+
+""".vscode\
+@hops.component(
+    "/multi_plot",
+    name="Multiple plots",
+    nickname="Multi_plot",
+    description="Tries to plot multiple lists into one graph using Matplotlib",
+    inputs=[
+        hs.HopsNumber("Numbers", "N", "Datatree of numbers to plot", hs.HopsParamAccess.TREE),
+        hs.HopsBoolean("Plot", "P", "Plot me")
+    ],
+    outputs=[]
+)
+def multi_plotter(datatree, show):
+    if show:
+        for elem in datatree.keys():
+            plt.plot(range(len(datatree[elem])), datatree[elem])
+
+        plt.show()
+"""
+
+@hops.component(
+    "/test",
+    name="test",
+    description="test point",
+    #icon="examples/pointat.png",
+    inputs=[
+        hs.HopsPoint("Points", "Point", "Points of the mesh",  access = hs.HopsParamAccess.LIST),
+        hs.HopsInteger('Integer', "I",  access = hs.HopsParamAccess.LIST)
+    ],
+    outputs=[
+        hs.HopsPoint("x", "x", "Points of the mesh",  access = hs.HopsParamAccess.LIST)
+    ]
+)
+def test(p,i):
+    x = p
+    #print(i)
+    return x
 
 """
  ___       __   ___  ________  ___  __    _______   ________  ________  ________  ________          
@@ -327,6 +387,17 @@ def deadCode (a: str):
         check = print("oh, yeah!")
     return (check, a)
 
+"""
+ ________  _________  ________  ___  ________   ________  ________      
+|\   ____\|\___   ___\\   __  \|\  \|\   ___  \|\   ____\|\   ____\     
+\ \  \___|\|___ \  \_\ \  \|\  \ \  \ \  \\ \  \ \  \___|\ \  \___|_    
+ \ \_____  \   \ \  \ \ \   _  _\ \  \ \  \\ \  \ \  \  __\ \_____  \   
+  \|____|\  \   \ \  \ \ \  \\  \\ \  \ \  \\ \  \ \  \|\  \|____|\  \  
+    ____\_\  \   \ \__\ \ \__\\ _\\ \__\ \__\\ \__\ \_______\____\_\  \ 
+   |\_________\   \|__|  \|__|\|__|\|__|\|__| \|__|\|_______|\_________\
+   \|_________|                                             \|_________|
+"""
+
 @hops.component(
     "/strings",
     name="strings",
@@ -371,24 +442,540 @@ def strings (a: str, b: str):
     print(a.index('a'))
     return (a, a + b, len(a), a.upper(), a.lower(), a.split(' '), ', '.join(a), a.replace('a', 'b'), a.strip('a'), a.startswith('Double'), a.endswith('content...'), a.find('click'), a.count('a'), a.index('a'))
     
+"""
+ ___       ___  ________  _________  ________      
+|\  \     |\  \|\   ____\|\___   ___\\   ____\     
+\ \  \    \ \  \ \  \___|\|___ \  \_\ \  \___|_    
+ \ \  \    \ \  \ \_____  \   \ \  \ \ \_____  \   
+  \ \  \____\ \  \|____|\  \   \ \  \ \|____|\  \  
+   \ \_______\ \__\____\_\  \   \ \__\  ____\_\  \ 
+    \|_______|\|__|\_________\   \|__| |\_________\
+                  \|_________|         \|_________|
+"""
+
+
 @hops.component(
-    "/keyword_None",
-    name="keyword_None",
-    nickname="keyword_None",
-    description="Work with keyword_None with CPython",
+    "/kw_List2",
+    name="kwList2",
+    nickname="kwList2",
+    description="Work with keywords and List with CPython",
     inputs=[
+        hs.HopsNumber("num", "num", "add num to list"),
+        #hs.HopsNumber("num", "num", "add num to list", hs.HopsParamAccess.LIST),
+        hs.HopsBoolean("bool", "bool", "add bool to list"),
+        #hs.HopsString("str", "str", "add str to list"),
     ],
     outputs=[
-        hs.HopsString("out", "out", "checkKeywordNone"),
-
+        hs.HopsString("aList","aList", "aList")
     ]
 )
-def f():
-    x = 2
-    # if you do not return a value for a function
-    a = f() is None
-    return (a)  
+def ky_List2(a: int, b: bool):
+    aList = []
+    aList.append(str(a))
+    aList.append(str(b))
+    #p = q = x
+    #b = p is q # True
+    #c = [23] is [23] # False
+    return (aList)
+
+@hops.component(
+    "/append",
+    name="append",
+    nickname="append",
+    description="Work with append with CPython",
+    inputs=[
+        hs.HopsNumber("numList", "numList", "start with numList", access = hs.HopsParamAccess.LIST),
+        hs.HopsNumber("num", "num", "add num to list"),
+    ],
+    outputs=[
+        hs.HopsNumber("numList", "numList", "numList"),
+    ]
+)
+def append(a: list, b: int):
+    a.append(b)
+    return (a)
+
+@hops.component(
+    "/remove",
+    name="remove",
+    nickname="remove",
+    description="Work with remove with CPython",
+    inputs=[
+        hs.HopsNumber("numList", "numList", "start with numList", access = hs.HopsParamAccess.LIST),
+        hs.HopsNumber("removeNum", "removeNum", "remove removeNum from numList", access = hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsNumber("bList", "bList", "bList", access = hs.HopsParamAccess.LIST)
+    ]
+)   
+def remove(a, b):
+    bList = a
+    bList.remove(b)
+    return bList
+
+@hops.component(
+    "/insert",
+    name="insert",
+    nickname="insert",
+    description="Work with insert with CPython",
+    inputs=[
+        hs.HopsNumber("numList", "numList", "start with numList", access = hs.HopsParamAccess.LIST),
+        hs.HopsNumber("insertNum", "insertNum", "insert insertNum to numList", access = hs.HopsParamAccess.ITEM),
+        hs.HopsNumber("index", "index", "insert insertNum to numList at index", access = hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsNumber("bList", "bList", "bList", access = hs.HopsParamAccess.LIST)
+    ]
+)
+def insert(a, b, c):
+    bList = a
+    bList.insert(1, b) #insert index bug
+    return bList    
+
+
+@hops.component(
+    "/sort",
+    name="sort",
+    nickname="sort",
+    description="Work with sort with CPython",
+    inputs=[
+        hs.HopsNumber("numList", "numList", "start with numList", access = hs.HopsParamAccess.LIST),
+    ],
+    outputs=[
+        hs.HopsNumber("bList", "bList", "bList", access = hs.HopsParamAccess.LIST)
+    ]
+)
+def sort(a):
+    bList = a
+    bList.sort()
+    return bList
+
+
+@hops.component(
+    "/reverse",
+    name="reverse",
+    nickname="reverse",
+    description="Work with reverse with CPython",
+    inputs=[
+        hs.HopsNumber("numList", "numList", "start with numList", access = hs.HopsParamAccess.LIST),
+    ],
+    outputs=[
+        hs.HopsNumber("bList", "bList", "bList", access = hs.HopsParamAccess.LIST)
+    ]
+)
+def reverse(a):
+    bList = a
+    bList.reverse()
+    return bList
+
+
+@hops.component(
+    "/index",
+    name="index",
+    nickname="index",
+    description="Work with index with CPython",
+    inputs=[
+        hs.HopsNumber("numList", "numList", "start with numList", access = hs.HopsParamAccess.LIST),
+        hs.HopsNumber("index", "index", "get index from numList", access = hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsNumber("bList", "bList", "bList", access = hs.HopsParamAccess.ITEM)
+    ]
+)
+def index(a, b):
+    bList = a
+    return bList[2] #index bug
+
+"""
+ ________  _________  ________  ________  ___  __    ________      
+|\   ____\|\___   ___\\   __  \|\   ____\|\  \|\  \ |\   ____\     
+\ \  \___|\|___ \  \_\ \  \|\  \ \  \___|\ \  \/  /|\ \  \___|_    
+ \ \_____  \   \ \  \ \ \   __  \ \  \    \ \   ___  \ \_____  \   
+  \|____|\  \   \ \  \ \ \  \ \  \ \  \____\ \  \\ \  \|____|\  \  
+    ____\_\  \   \ \__\ \ \__\ \__\ \_______\ \__\\ \__\____\_\  \ 
+   |\_________\   \|__|  \|__|\|__|\|_______|\|__| \|__|\_________\
+   \|_________|                                        \|_________|
+"""
+
+@hops.component(
+    "/pop",
+    name="pop",
+    nickname="pop",
+    description="Work with pop with CPython",
+    inputs=[
+        hs.HopsNumber("numList", "numList", "start with numList", access = hs.HopsParamAccess.LIST),
+    ],
+    outputs=[
+        hs.HopsNumber("bList", "bList", "bList", access = hs.HopsParamAccess.LIST)
+    ]
+)
+def pop(a):
+    bList = a
+    bList.pop()
+    return bList
+
+"""
+ ________  ________  ________   _________  ________  ________  ___          
+|\   ____\|\   __  \|\   ___  \|\___   ___\\   __  \|\   __  \|\  \         
+\ \  \___|\ \  \|\  \ \  \\ \  \|___ \  \_\ \  \|\  \ \  \|\  \ \  \        
+ \ \  \    \ \  \\\  \ \  \\ \  \   \ \  \ \ \   _  _\ \  \\\  \ \  \       
+  \ \  \____\ \  \\\  \ \  \\ \  \   \ \  \ \ \  \\  \\ \  \\\  \ \  \____  
+   \ \_______\ \_______\ \__\\ \__\   \ \__\ \ \__\\ _\\ \_______\ \_______\
+    \|_______|\|_______|\|__| \|__|    \|__|  \|__|\|__|\|_______|\|_______|
+                                                                            
+                                                                            
+                                                                            
+ ________ ___       ________  ___       __                                  
+|\  _____\\  \     |\   __  \|\  \     |\  \                                
+\ \  \__/\ \  \    \ \  \|\  \ \  \    \ \  \                               
+  \ \  \_| \ \  \____\ \  \\\  \ \  \|\__\_\  \                             
+   \ \__\   \ \_______\ \_______\ \____________\                            
+    \|__|    \|_______|\|_______|\|____________|    
+"""
+
+@hops.component(
+    "/forloop",
+    name="forloop",
+    nickname="forloop",
+    description="Work with forloop with CPython",
+    inputs=[
+        hs.HopsNumber("numList", "numList", "start with numList", access = hs.HopsParamAccess.LIST),
+    ],
+    outputs=[
+        hs.HopsNumber("bList", "bList", "bList", access = hs.HopsParamAccess.LIST)
+    ]
+)
+def forloop(a):
+    bList = []
+    for i in a:
+        bList.append(i)
+    return bList
+
+@hops.component(
+    "/_digitSum",
+    name="digitSum",
+    nickname="digitSum",
+    description="Work with digitSum with CPython",
+    inputs=[
+        hs.HopsNumber("num", "num", "start with num", access = hs.HopsParamAccess.LIST),
+    ],
+    outputs=[
+        hs.HopsNumber("b", "b", "b", access = hs.HopsParamAccess.ITEM)
+    ]
+)
+def digitSum(a):
+    b = 0
+    for i in a:
+        b += i
+    return b
+
+@hops.component(
+    "/nested_If",
+    name="nested_If",
+    nickname="nestedIf",
+    description="Work with nestedIf with CPython",
+    inputs=[
+        hs.HopsNumber("num", "num", "start with num", access = hs.HopsParamAccess.LIST),
+    ],
+    outputs=[
+        hs.HopsNumber("b", "b", "b", access = hs.HopsParamAccess.ITEM)
+    ]
+)
+def nestedIf(a):
+    b = 0
+    if a[0] > 0:
+        if a[1] > 0:
+            b = a[0] + a[1]
+    return b
+
+
+@hops.component(
+    "/if-elif-else",
+    name="ifElifElse",
+    nickname="ifElifElse",
+    description="Work with ifElifElse with CPython",
+    inputs=[
+        hs.HopsNumber("num", "num", "start with num", access = hs.HopsParamAccess.LIST),
+    ],
+    outputs=[
+        hs.HopsNumber("b", "b", "b", access = hs.HopsParamAccess.ITEM)
+    ]
+)
+def ifElifElse(a):
+    b = 0
+    if a[0] > 0:
+        b = a[0]
+    elif a[1] > 0:
+        b = a[1]
+    else:
+        b = a[2]
+    return b
+
+
+"""
+ ___       ________  ________  ________  ________      
+|\  \     |\   __  \|\   __  \|\   __  \|\   ____\     
+\ \  \    \ \  \|\  \ \  \|\  \ \  \|\  \ \  \___|_    
+ \ \  \    \ \  \\\  \ \  \\\  \ \   ____\ \_____  \   
+  \ \  \____\ \  \\\  \ \  \\\  \ \  \___|\|____|\  \  
+   \ \_______\ \_______\ \_______\ \__\     ____\_\  \ 
+    \|_______|\|_______|\|_______|\|__|    |\_________\
+                                           \|_________|
+"""
+
+@hops.component(
+    "/while",
+    name="while",
+    nickname="while",
+    description="Work with while with CPython",
+    inputs=[
+        hs.HopsNumber("num", "num", "start with num", access = hs.HopsParamAccess.LIST),
+    ],
+    outputs=[
+        hs.HopsNumber("b", "b", "b", access = hs.HopsParamAccess.ITEM)
+    ]
+)
+def whileLoop(a):
+    b = 0
+    i = 0
+    while i < len(a):
+        b += a[i]
+        i += 1
+    return b
+
+@hops.component(
+    "/range",
+    name="range",
+    nickname="range",
+    description="Work with range with CPython",
+    inputs=[
+        hs.HopsNumber("num", "num", "start with num", access = hs.HopsParamAccess.LIST),
+    ],
+    outputs=[
+        hs.HopsNumber("b", "b", "b", access = hs.HopsParamAccess.ITEM)
+    ]
+)
+def rangeLoop(a):
+    b = 0
+    for i in range(len(a)):
+        b += a[i]
+    return b
+
+@hops.component(
+    "/while-count",
+    name="whileCount",
+    nickname="whileCount",
+    description="Work with whileCount with CPython",
+    inputs=[
+        hs.HopsNumber("num", "num", "start with num", access = hs.HopsParamAccess.LIST),
+    ],
+    outputs=[
+        hs.HopsNumber("b", "b", "b", access = hs.HopsParamAccess.ITEM)
+    ]
+)
+def whileCount(a):
+    count = 0
+    while count < len(a):
+        count += 1
+    return count
+
+@hops.component(
+
+    nickname="whilePop",
+    description="Work with whilePop with CPython",
+    inputs=[
+        hs.HopsNumber("num", "num", "start with num", access = hs.HopsParamAccess.LIST),
+    ],
+    outputs=[
+        hs.HopsNumber("b", "b", "b", access = hs.HopsParamAccess.ITEM)
+    ]
+)
+def whilePop(a):
+    "/while-pop",
+    name="whilePop",
+    b = 0
+    while len(a) > 0:
+        b += a.pop()
+        print(a.pop()) #debug in python server
+    return b
+
+@hops.component(
+    "/_while-break",
+    name="whileBreak",
+    nickname="whileBreak",
+    description="Work with whileBreak with CPython",
+    inputs=[
+        hs.HopsNumber("num", "num", "start with num", access = hs.HopsParamAccess.LIST),
+        hs.HopsInteger("breakNum", "breakNum", "breakNum", access = hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsNumber("b", "b", "b", access = hs.HopsParamAccess.ITEM)
+    ]
+)
+def whileBreak(a, breakNum):
+    i = 0
+    while i < breakNum:
+        i += 1
+        print(i) #debug in python server
+        return i
+    else: 
+        print("No Break\n") #debug in python server
+        return 777
+    
+    i = 0
+    while i < breakNum:
+        i += 0
+        print(i) #debug in python server
+        break
+    else:
+        print("No Break\n") #debug in python server
+        return 777
+
+@hops.component(
+    "/continue", #buggy
+    name="continue", #buggy
+    nickname="continue",
+    description="Work with continue with CPython",
+    inputs=[
+        hs.HopsNumber("num", "num", "start with num", access = hs.HopsParamAccess.LIST),
+        hs.HopsInteger("continueNum", "continueNum", "continueNum", access = hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsNumber("b", "b", "b", access = hs.HopsParamAccess.ITEM)
+    ]
+)
+def continueLoop(a, continueNum):
+    i = 0
+    while i < continueNum:
+        i += 1
+        if i == continueNum:
+            continue
+        print(i)
+        return i
+    else:
+        print("Not continued\n")
+    return 777
+
+
+
+
+
+
+"""
+ _____ ______   ___  ________  ________  _______   ___       ___       ________  ________   _______   ________  ___  ___  ________      
+|\   _ \  _   \|\  \|\   ____\|\   ____\|\  ___ \ |\  \     |\  \     |\   __  \|\   ___  \|\  ___ \ |\   __  \|\  \|\  \|\   ____\     
+\ \  \\\__\ \  \ \  \ \  \___|\ \  \___|\ \   __/|\ \  \    \ \  \    \ \  \|\  \ \  \\ \  \ \   __/|\ \  \|\  \ \  \\\  \ \  \___|_    
+ \ \  \\|__| \  \ \  \ \_____  \ \  \    \ \  \_|/_\ \  \    \ \  \    \ \   __  \ \  \\ \  \ \  \_|/_\ \  \\\  \ \  \\\  \ \_____  \   
+  \ \  \    \ \  \ \  \|____|\  \ \  \____\ \  \_|\ \ \  \____\ \  \____\ \  \ \  \ \  \\ \  \ \  \_|\ \ \  \\\  \ \  \\\  \|____|\  \  
+   \ \__\    \ \__\ \__\____\_\  \ \_______\ \_______\ \_______\ \_______\ \__\ \__\ \__\\ \__\ \_______\ \_______\ \_______\____\_\  \ 
+    \|__|     \|__|\|__|\_________\|_______|\|_______|\|_______|\|_______|\|__|\|__|\|__| \|__|\|_______|\|_______|\|_______|\_________\
+                       \|_________|                                                                                         \|_________|
+"""
+
+@hops.component(
+    "/is_prime",
+    name="is_prime",
+    nickname="is_prime",
+    description="Work with is_prime with CPython",
+    inputs=[
+        hs.HopsNumber("num", "num", "start with num", access = hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsBoolean("is_prime", "is_prime", "is_prime", access = hs.HopsParamAccess.ITEM)
+    ]
+)
+def is_prime(a):
+    b = a
+    if b == 2 or b == 3:
+        return True
+    if b < 2 or b % 2 == 0:
+        return False
+    for i in range(3, int(b**0.5)+1, 2):
+        if b % i == 0:
+            return False
+    return True
+
+@hops.component(
+    "/evenOdd",
+    name="evenOdd",
+    nickname="evenOdd",
+    description="Work with evenOdd with CPython",
+    inputs=[
+        hs.HopsNumber("num", "num", "start with num", access = hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsString("evenOdd", "evenOdd", "evenOdd", access = hs.HopsParamAccess.ITEM)
+    ]
+) 
+def evenOdd(a):
+    b = a
+    if b % 2 == 0:
+        return "even"
+    else:
+        return "odd"
+
+
+@hops.component(
+    "/_swap",
+    name="swap",
+    nickname="swap",
+    description="Work with swap with CPython",
+    inputs=[
+        hs.HopsInteger("numList", "numList", "start with numList", access = hs.HopsParamAccess.LIST),
+        hs.HopsInteger("index1", "index1", "get index from numList", access = hs.HopsParamAccess.ITEM),
+        hs.HopsInteger("index2", "index2", "get index from numList", access = hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsInteger("bList", "bList", "bList", access = hs.HopsParamAccess.LIST)
+    ]
+)   
+def swap(a: int, index1: int, index2: int):
+    bList = a
+    bList[index1], bList[index2] = bList[index2], bList[index1]
+    return bList
+
+
+"""
+ ___       ________  _____ ______   ________  ________  ________     
+|\  \     |\   __  \|\   _ \  _   \|\   __  \|\   ___ \|\   __  \    
+\ \  \    \ \  \|\  \ \  \\\__\ \  \ \  \|\ /\ \  \_|\ \ \  \|\  \   
+ \ \  \    \ \   __  \ \  \\|__| \  \ \   __  \ \  \ \\ \ \   __  \  
+  \ \  \____\ \  \ \  \ \  \    \ \  \ \  \|\  \ \  \_\\ \ \  \ \  \ 
+   \ \_______\ \__\ \__\ \__\    \ \__\ \_______\ \_______\ \__\ \__\
+    \|_______|\|__|\|__|\|__|     \|__|\|_______|\|_______|\|__|\|__|
+"""
+
+# annonymous function
+@hops.component(
+    "/cube",
+    name="cube",
+    nickname="cube",
+    description="Work with cube with CPython",
+    inputs=[
+        hs.HopsNumber("num", "num", "start with num", access = hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsNumber("cube", "cube", "cube", access = hs.HopsParamAccess.ITEM),
+        hs.HopsNumber("cube_v2", "cube_v2", "cube_v2", access = hs.HopsParamAccess.ITEM)
+    ]
+)
+def cube(x):
+    cube_v2 = lambda x: x*x*x
+    return cube_v2
+
+
+"""
+ ________  _______  _________  ________      
+|\   ____\|\  ___ \|\___   ___\\   ____\     
+\ \  \___|\ \   __/\|___ \  \_\ \  \___|_    
+ \ \_____  \ \  \_|/__  \ \  \ \ \_____  \   
+  \|____|\  \ \  \_|\ \  \ \  \ \|____|\  \  
+    ____\_\  \ \_______\  \ \__\  ____\_\  \ 
+   |\_________\|_______|   \|__| |\_________\
+   \|_________|                  \|_________|
+"""
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)
-
