@@ -1131,6 +1131,7 @@ def cube1(a):
     ]
 )   
 def power(a, power):
+
     return a**power
 
 @hops.component(
@@ -1169,6 +1170,189 @@ def _map(a):
     for i in a:
         mapped = map(lambda x: x % 2 == 0, a)
     return list(mapped)
+
+"""
+ ________ ___  ________  ________  _________                                               
+|\  _____\\  \|\   __  \|\   ____\|\___   ___\                                             
+\ \  \__/\ \  \ \  \|\  \ \  \___|\|___ \  \_|                                             
+ \ \   __\\ \  \ \   _  _\ \_____  \   \ \  \                                              
+  \ \  \_| \ \  \ \  \\  \\|____|\  \   \ \  \                                             
+   \ \__\   \ \__\ \__\\ _\ ____\_\  \   \ \__\                                            
+    \|__|    \|__|\|__|\|__|\_________\   \|__|                                            
+                           \|_________|                                                    
+                                                                                           
+                                                                                           
+ ________  ___       ________  ________   ________                                         
+|\   ____\|\  \     |\   __  \|\   ____\ |\   ____\                                        
+\ \  \___|\ \  \    \ \  \|\  \ \  \___|_\ \  \___|_                                       
+ \ \  \    \ \  \    \ \   __  \ \_____  \\ \_____  \                                      
+  \ \  \____\ \  \____\ \  \ \  \|____|\  \\|____|\  \                                     
+   \ \_______\ \_______\ \__\ \__\____\_\  \ ____\_\  \                                    
+    \|_______|\|_______|\|__|\|__|\_________\\_________\                                   
+                                 \|_________\|_________|                                   
+                                                                                           
+                                                                                           
+ ________ ___  ___  ________   ________ _________  ___  ________  ________   ________      
+|\  _____\\  \|\  \|\   ___  \|\   ____\\___   ___\\  \|\   __  \|\   ___  \|\   ____\     
+\ \  \__/\ \  \\\  \ \  \\ \  \ \  \___\|___ \  \_\ \  \ \  \|\  \ \  \\ \  \ \  \___|_    
+ \ \   __\\ \  \\\  \ \  \\ \  \ \  \       \ \  \ \ \  \ \  \\\  \ \  \\ \  \ \_____  \   
+  \ \  \_| \ \  \\\  \ \  \\ \  \ \  \____   \ \  \ \ \  \ \  \\\  \ \  \\ \  \|____|\  \  
+   \ \__\   \ \_______\ \__\\ \__\ \_______\  \ \__\ \ \__\ \_______\ \__\\ \__\____\_\  \ 
+    \|__|    \|_______|\|__| \|__|\|_______|   \|__|  \|__|\|_______|\|__| \|__|\_________\
+                                                                               \|_________|
+"""
+
+@hops.component(
+    "/assignFuctionToVariable",
+    name="assignFuctionToVariable",
+    nickname="assignFuctionToVariable",
+    description="Work with assignFuctionToVariable with CPython",
+    inputs=[
+        hs.HopsNumber("num", "num", "start with num", access = hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsNumber("cube", "cube", "cube", access = hs.HopsParamAccess.ITEM)
+    ]
+)
+def assignFuctionToVariable(a):
+    cube = lambda x: x**3
+    return cube(a)  # return the value of the function
+
+
+@hops.component(
+    "/cubeIt",
+    name="cubeIt",
+    nickname="cubeIt",
+    description="Work with cubeIt with CPython",
+    inputs=[
+        hs.HopsNumber("num", "num", "start with num", access = hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsNumber("cube", "cube", "cube", access = hs.HopsParamAccess.ITEM)
+    ]
+)
+def cubeIt(a):
+    cubeOut = assignFuctionToVariable(a)
+    return cubeOut
+
+@hops.component(
+    "/_funcAsArg",
+    name="funcAsArg",
+    nickname="funcAsArg",
+    description="Work with funcAsArg with CPython",
+    inputs=[
+        hs.HopsNumber("num", "num", "start with num", access = hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsNumber("cube", "cube", "cube", access = hs.HopsParamAccess.ITEM)
+    ]
+)   
+def funcAsArg(func):
+    funcOut = cubeIt(3)
+    return funcOut
+
+@hops.component(
+    "/returnFunc5",
+    name="returnFunc",
+    nickname="returnFunc",
+    description="Work with returnFunc with CPython",
+    inputs=[
+        hs.HopsNumber("num", "num", "start with num", access = hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsNumber("adder", "adder", "adder", access = hs.HopsParamAccess.ITEM)
+    ]
+)
+def returnFunc(a):
+    def create_adder(a):
+        def adder(y):
+            return a + y
+        return adder
+    add_15 = create_adder(15)
+    return add_15(a)
+
+
+"""
+ ________  ___       ________  ________   ________  _______   ________      
+|\   ____\|\  \     |\   __  \|\   ____\ |\   ____\|\  ___ \ |\   ____\     
+\ \  \___|\ \  \    \ \  \|\  \ \  \___|_\ \  \___|\ \   __/|\ \  \___|_    
+ \ \  \    \ \  \    \ \   __  \ \_____  \\ \_____  \ \  \_|/_\ \_____  \   
+  \ \  \____\ \  \____\ \  \ \  \|____|\  \\|____|\  \ \  \_|\ \|____|\  \  
+   \ \_______\ \_______\ \__\ \__\____\_\  \ ____\_\  \ \_______\____\_\  \ 
+    \|_______|\|_______|\|__|\|__|\_________\\_________\|_______|\_________\
+                                 \|_________\|_________|        \|_________|
+                                                                            
+                                                                            
+ ________  ________   ________                                              
+|\   __  \|\   ___  \|\   ___ \                                             
+\ \  \|\  \ \  \\ \  \ \  \_|\ \                                            
+ \ \   __  \ \  \\ \  \ \  \ \\ \                                           
+  \ \  \ \  \ \  \\ \  \ \  \_\\ \                                          
+   \ \__\ \__\ \__\\ \__\ \_______\                                         
+    \|__|\|__|\|__| \|__|\|_______|                                         
+                                                                            
+                                                                            
+                                                                            
+ ________  ________        ___  _______   ________ _________  ________      
+|\   __  \|\   __  \      |\  \|\  ___ \ |\   ____\\___   ___\\   ____\     
+\ \  \|\  \ \  \|\ /_     \ \  \ \   __/|\ \  \___\|___ \  \_\ \  \___|_    
+ \ \  \\\  \ \   __  \  __ \ \  \ \  \_|/_\ \  \       \ \  \ \ \_____  \   
+  \ \  \\\  \ \  \|\  \|\  \\_\  \ \  \_|\ \ \  \____   \ \  \ \|____|\  \  
+   \ \_______\ \_______\ \________\ \_______\ \_______\  \ \__\  ____\_\  \ 
+    \|_______|\|_______|\|________|\|_______|\|_______|   \|__| |\_________\
+                                                                \|_________|
+
+"""
+
+@hops.component(
+    "/class",
+    name="Class",
+    nickname="Class",
+    description="Work with Class with CPython",
+    inputs=[
+        hs.HopsNumber("num", "num", "start with num", access = hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsNumber("cube", "cube", "cube", access = hs.HopsParamAccess.ITEM)
+    ]
+)   
+def class_component(a):
+    class MyClass(object):
+        def __init__(self, num):
+            self.num = num
+        def cube(self):
+            return self.num**3
+    my_class = MyClass(a)
+    return my_class.cube()
+
+
+@hops.component(
+    "/classWithAttributes",
+    name="ClassWithAttributes",
+    nickname="ClassWithAttributes",
+    description="Work with ClassWithAttributes with CPython",
+    inputs=[
+        hs.HopsNumber("num", "num", "start with num", access = hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsNumber("attr1Out", "attr1Out", "attr1Out", access = hs.HopsParamAccess.ITEM),
+        hs.HopsNumber("attr2Out", "attr2Out", "attr2Out", access = hs.HopsParamAccess.ITEM),
+        hs.HopsString("infoOut", "infoOut", "infoOut", access = hs.HopsParamAccess.ITEM),
+    ]
+)
+def classWithAttributes(a):
+    class MyClass(object):
+        def __init__(self, num):
+            self.num = num
+        def attr1(self):
+            return self.num**3
+        def attr2(self):
+            return self.num**2
+        def info(self):
+            return "num: {}".format(self.num)
+    my_class = MyClass(a)
+    return my_class.attr1(), my_class.attr2(), my_class.info()
+
 
 
 
