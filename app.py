@@ -686,6 +686,7 @@ def nestedIf(a):
     if a[0] > 0:
         if a[1] > 0:
             b = a[0] + a[1]
+            print("hello Wickerson") #used for debugging in terminal/CMD line
     return b
 
 
@@ -780,7 +781,7 @@ def whileCount(a):
     return count
 
 @hops.component(
-
+    "/whilepop",
     nickname="whilePop",
     description="Work with whilePop with CPython",
     inputs=[
@@ -856,7 +857,163 @@ def continueLoop(a, continueNum):
         print("Not continued\n")
     return 777
 
+@hops.component(
+    "/sorted2",
+    name="sorted",
+    nickname="sorted",
+    description="Work with sorted with CPython",
+    inputs=[
+        hs.HopsNumber("num", "num", "start with num", access = hs.HopsParamAccess.LIST),
+    ],
+    outputs=[
+        hs.HopsNumber("b", "b", "b", access = hs.HopsParamAccess.ITEM)
+    ]
+)
+def sortedLoop(a):
+    listOut = []
+    for i in sorted(a):
+        print(i, end=" ")
+        listOut.append(i)
+    return listOut
+    #for i in sorted(set(a)):
+        #print(i, end=" ")
+    #return i
 
+@hops.component(
+    "/sorted_set2",
+    name="sorted_set",
+    nickname="sorted_set",
+    description="Work with sorted_set with CPython",
+    inputs=[
+        hs.HopsNumber("num", "num", "start with num", access = hs.HopsParamAccess.LIST),
+    ],
+    outputs=[
+        hs.HopsNumber("b", "b", "b", access = hs.HopsParamAccess.ITEM)
+    ]
+)
+def sorted_setLoop(a):
+    #for i in sorted(a):
+        #print(i, end=" ")
+    #return i
+    listOut = []
+    for i in sorted(set(a)):
+        print(i, end=" ")
+        listOut.append(i)
+    return listOut
+
+@hops.component(
+    "/_reversed",
+    name="reversed",
+    nickname="reversed",
+    description="Work with reversed with CPython",
+    inputs=[
+        hs.HopsNumber("num", "num", "start with num", access = hs.HopsParamAccess.LIST),
+    ],
+    outputs=[
+        hs.HopsNumber("b", "b", "b", access = hs.HopsParamAccess.ITEM)
+    ]
+)
+def reversedLoop(a):
+    listOut = []
+    for i in reversed(a):
+        print(i, end=" ")
+        listOut.append(i)
+    return listOut
+
+
+@hops.component(
+    "/_rangeComponent",
+    name="rangeComponent",
+    nickname="rangeComponent",
+    description="Work with rangeComponent with CPython",
+    inputs=[
+        hs.HopsInteger("start", "start", "start with num", access = hs.HopsParamAccess.ITEM),
+        hs.HopsInteger("end", "end", "end with num", access = hs.HopsParamAccess.ITEM),
+        hs.HopsInteger("step", "step", "step with num", access = hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsInteger("b", "b", "b", access = hs.HopsParamAccess.ITEM)
+    ]
+)
+def rangeComponent(start, end, step):
+    listOut = []
+    for i in (range(start, end, step)):
+        print(i)
+        listOut.append(i)
+    return listOut
+
+@hops.component(
+    "/reversed_rangeComponent",
+    name="reversed_rangeComponent",
+    nickname="reversed_rangeComponent",
+    description="Work with reversed_rangeComponent with CPython",
+    inputs=[
+        hs.HopsInteger("start", "start", "start with num", access = hs.HopsParamAccess.ITEM),
+        hs.HopsInteger("end", "end", "end with num", access = hs.HopsParamAccess.ITEM),
+        hs.HopsInteger("step", "step", "step with num", access = hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsInteger("b", "b", "b", access = hs.HopsParamAccess.ITEM)
+    ]
+)
+def reversed_rangeComponent(start, end, step):
+    listOut = []
+    for i in reversed(range(start, end, step)):
+        print(i)
+        listOut.append(i)
+    return listOut
+
+"""
+ ___       ________  ________  ________  ___  ________   ________          _________  _______   ________  ___  ___         
+|\  \     |\   __  \|\   __  \|\   __  \|\  \|\   ___  \|\   ____\        |\___   ___\\  ___ \ |\   ____\|\  \|\  \        
+\ \  \    \ \  \|\  \ \  \|\  \ \  \|\  \ \  \ \  \\ \  \ \  \___|        \|___ \  \_\ \   __/|\ \  \___|\ \  \\\  \       
+ \ \  \    \ \  \\\  \ \  \\\  \ \   ____\ \  \ \  \\ \  \ \  \  ___           \ \  \ \ \  \_|/_\ \  \    \ \   __  \      
+  \ \  \____\ \  \\\  \ \  \\\  \ \  \___|\ \  \ \  \\ \  \ \  \|\  \           \ \  \ \ \  \_|\ \ \  \____\ \  \ \  \ ___ 
+   \ \_______\ \_______\ \_______\ \__\    \ \__\ \__\\ \__\ \_______\           \ \__\ \ \_______\ \_______\ \__\ \__\\__\
+    \|_______|\|_______|\|_______|\|__|     \|__|\|__| \|__|\|_______|            \|__|  \|_______|\|_______|\|__|\|__\|__|
+
+"""
+
+
+@hops.component(
+    "/_enumerate", #what every panel does
+    name="enumerate",
+    nickname="enumerate",
+    description="Work with enumerate with CPython",
+    inputs=[
+        hs.HopsNumber("num", "num", "start with num", access = hs.HopsParamAccess.LIST),
+    ],
+    outputs=[
+        hs.HopsNumber("b", "b", "b", access = hs.HopsParamAccess.ITEM)
+    ]
+)
+def enumerateLoop(a):
+    listOut = []
+    for i, j in enumerate(a):
+        print(i, j, end=" ")
+        listOut.append(j)
+    return listOut
+
+@hops.component(
+    "/zip", #what every panel does
+    name="zip",
+    nickname="zip",
+    description="Work with zip with CPython",
+    inputs=[
+        hs.HopsNumber("num", "num", "start with num", access = hs.HopsParamAccess.LIST),
+        hs.HopsNumber("num2", "num2", "start with num2", access = hs.HopsParamAccess.LIST),
+    ],
+    outputs=[
+        hs.HopsString("b", "b", "b", access = hs.HopsParamAccess.ITEM)
+    ]
+)
+def zipLoop(a, b):
+    listOut = []
+    for i, j in zip(a, b):
+        print(i, j, end=" ")
+        listOut.append(i)
+        listOut.append(j)
+    return listOut
 
 
 
@@ -945,37 +1102,81 @@ def swap(a: int, index1: int, index2: int):
     \|_______|\|__|\|__|\|__|     \|__|\|_______|\|_______|\|__|\|__|
 """
 
-# annonymous function
 @hops.component(
-    "/cube",
-    name="cube",
-    nickname="cube",
-    description="Work with cube with CPython",
+    "/cube1",
+    name="cube1",
+    nickname="cube1",
+    description="Work with cube1 with CPython",
     inputs=[
         hs.HopsNumber("num", "num", "start with num", access = hs.HopsParamAccess.ITEM),
     ],
     outputs=[
-        hs.HopsNumber("cube", "cube", "cube", access = hs.HopsParamAccess.ITEM),
-        hs.HopsNumber("cube_v2", "cube_v2", "cube_v2", access = hs.HopsParamAccess.ITEM)
+        hs.HopsNumber("cube", "cube", "cube", access = hs.HopsParamAccess.ITEM)
     ]
 )
-def cube(x):
-    cube_v2 = lambda x: x*x*x
-    return cube_v2
+def cube1(a):
+    return a**3
 
+@hops.component(
+    "/power",
+    name="power",
+    nickname="power",
+    description="Work with power with CPython",
+    inputs=[
+        hs.HopsNumber("num", "num", "start with num", access = hs.HopsParamAccess.ITEM),
+        hs.HopsNumber("power", "power", "power", access = hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsNumber("power", "power", "power", access = hs.HopsParamAccess.ITEM)
+    ]
+)   
+def power(a, power):
+    return a**power
 
-"""
- ________  _______  _________  ________      
-|\   ____\|\  ___ \|\___   ___\\   ____\     
-\ \  \___|\ \   __/\|___ \  \_\ \  \___|_    
- \ \_____  \ \  \_|/__  \ \  \ \ \_____  \   
-  \|____|\  \ \  \_|\ \  \ \  \ \|____|\  \  
-    ____\_\  \ \_______\  \ \__\  ____\_\  \ 
-   |\_________\|_______|   \|__| |\_________\
-   \|_________|                  \|_________|
-"""
+@hops.component(
+    "/_filter1",
+    name="_filter",
+    nickname="_filter",
+    description="Work with _filter with CPython",
+    inputs=[
+        hs.HopsNumber("numList", "numList", "start with numList", access = hs.HopsParamAccess.LIST),
+    ],
+    outputs=[
+        hs.HopsNumber("filteredList", "filteredList", "filteredList", access = hs.HopsParamAccess.LIST)
+    ]
+)
+def _filter(a):
+    filtered = []
+    for i in a:
+        if i % 2 == 0:
+            filtered.append(i)
+    return filtered
+
+@hops.component(
+    "/_map3",
+    name="_map",
+    nickname="map",
+    description="Work with map with CPython",
+    inputs=[
+        hs.HopsNumber("numList", "numList", "start with numList", access = hs.HopsParamAccess.LIST),
+    ],
+    outputs=[
+        hs.HopsBoolean("mappedList", "mappedList", "mappedList", access = hs.HopsParamAccess.LIST)
+    ]
+)
+def _map(a):
+    mapped = []
+    for i in a:
+        mapped = map(lambda x: x % 2 == 0, a)
+    return list(mapped)
+
 
 
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+
+
+
+
