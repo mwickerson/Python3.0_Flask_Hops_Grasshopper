@@ -3,6 +3,8 @@ from flask import Flask
 import ghhops_server as hs
 import rhino3dm
 
+import math
+
 
 # register hops app as middleware
 app = Flask(__name__)
@@ -1353,14 +1355,619 @@ def classWithAttributes(a):
     my_class = MyClass(a)
     return my_class.attr1(), my_class.attr2(), my_class.info()
 
+@hops.component(
+    "/class_calculator",
+    name="ClassCalculator",
+    nickname="ClassCalculator",
+    description="Work with ClassCalculator with CPython",
+    inputs=[
+        hs.HopsNumber("num1", "num1", "start with num1", access = hs.HopsParamAccess.ITEM),
+        hs.HopsNumber("num2", "num2", "start with num2", access = hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsNumber("sum", "sum", "sum", access = hs.HopsParamAccess.ITEM),
+        hs.HopsNumber("diff", "diff", "diff", access = hs.HopsParamAccess.ITEM),
+        hs.HopsNumber("prod", "prod", "prod", access = hs.HopsParamAccess.ITEM),
+        hs.HopsNumber("quot", "quot", "quot", access = hs.HopsParamAccess.ITEM),
+    ]
+)
+def class_calculator(a, b):
+    class MyClass(object):
+        def __init__(self, num1, num2):
+            self.num1 = num1
+            self.num2 = num2
+        def sum(self):
+            return self.num1 + self.num2
+        def diff(self):
+            return self.num1 - self.num2
+        def prod(self):
+            return self.num1 * self.num2
+        def quot(self):
+            return self.num1 / self.num2
+    my_class = MyClass(a, b)
+    return my_class.sum(), my_class.diff(), my_class.prod(), my_class.quot()
+
+
+       
+@hops.component(
+    "/class_calculator_adv",
+    name="ClassCalculatorAdv",
+    nickname="ClassCalculatorAdv",
+    description="Work with ClassCalculatorAdv with CPython",
+    inputs=[
+        hs.HopsNumber("num1", "num1", "start with num1", access = hs.HopsParamAccess.ITEM),
+        hs.HopsNumber("num2", "num2", "start with num2", access = hs.HopsParamAccess.ITEM),
+    ],      
+    outputs=[
+        hs.HopsNumber("mod", "mod", "mod", access = hs.HopsParamAccess.ITEM),
+        hs.HopsNumber("div", "div", "div", access = hs.HopsParamAccess.ITEM),
+        hs.HopsNumber("exp", "exp", "exp", access = hs.HopsParamAccess.ITEM),
+        hs.HopsNumber("pow", "pow", "pow", access = hs.HopsParamAccess.ITEM),
+    ]
+)
+def class_calculator_adv(a, b):
+    class MyClass(object):
+        def __init__(self, num1, num2):
+            self.num1 = num1
+            self.num2 = num2
+        def mod(self):
+            return self.num1 % self.num2
+        def div(self):
+            return self.num1 / self.num2
+        def exp(self):
+            return self.num1 ** self.num2
+        def pow(self):
+            return self.num1 ** self.num2
+    my_class = MyClass(a, b)
+    return my_class.mod(), my_class.div(), my_class.exp(), my_class.pow()
+
+@hops.component(
+    "/class_calculator_trig",
+    name="ClassCalculatorTrig",
+    nickname="ClassCalculatorTrig",
+    description="Work with ClassCalculatorTrig with CPython",
+    inputs=[
+        hs.HopsNumber("num1", "num1", "start with num1", access = hs.HopsParamAccess.ITEM),
+        hs.HopsNumber("num2", "num2", "start with num2", access = hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsNumber("sin", "sin", "sin", access = hs.HopsParamAccess.ITEM),
+        hs.HopsNumber("cos", "cos", "cos", access = hs.HopsParamAccess.ITEM),
+        hs.HopsNumber("tan", "tan", "tan", access = hs.HopsParamAccess.ITEM),   
+    ]
+)
+def class_calculator_trig(a, b):
+    class MyClass(object):
+        def __init__(self, num1, num2):
+            self.num1 = num1
+            self.num2 = num2
+        def sin(self):
+            return math.sin(self.num1)
+        def cos(self):
+            return math.cos(self.num1)
+        def tan(self):
+            return math.tan(self.num1)
+    my_class = MyClass(a, b)
+    return my_class.sin(), my_class.cos(), my_class.tan()
+
+@hops.component(
+    "/class_calculator_trig_adv",
+    name="ClassCalculatorTrigAdv",
+    nickname="ClassCalculatorTrigAdv",
+    description="Work with ClassCalculatorTrigAdv with CPython",
+    inputs=[
+        hs.HopsNumber("num1", "num1", "start with num1", access = hs.HopsParamAccess.ITEM),
+        hs.HopsNumber("num2", "num2", "start with num2", access = hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsNumber("asin", "asin", "asin", access = hs.HopsParamAccess.ITEM),
+        hs.HopsNumber("acos", "acos", "acos", access = hs.HopsParamAccess.ITEM),
+        hs.HopsNumber("atan", "atan", "atan", access = hs.HopsParamAccess.ITEM),
+        hs.HopsNumber("atan2", "atan2", "atan2", access = hs.HopsParamAccess.ITEM),
+    ]
+)
+def class_calculator_trig_adv(a, b):
+    class MyClass(object):
+        def __init__(self, num1, num2):
+            self.num1 = num1
+            self.num2 = num2
+        def asin(self):
+            return math.asin(self.num1)
+        def acos(self):
+            return math.acos(self.num1)
+        def atan(self):
+            return math.atan(self.num1)
+        def atan2(self):
+            return math.atan2(self.num1, self.num2)
+    my_class = MyClass(a, b)
+    return my_class.asin(), my_class.acos(), my_class.atan(), my_class.atan2()
+
+
+"""
+ ________  ___       ________  ________   ________  _______   ________                  
+|\   ____\|\  \     |\   __  \|\   ____\ |\   ____\|\  ___ \ |\   ____\                 
+\ \  \___|\ \  \    \ \  \|\  \ \  \___|_\ \  \___|\ \   __/|\ \  \___|_                
+ \ \  \    \ \  \    \ \   __  \ \_____  \\ \_____  \ \  \_|/_\ \_____  \               
+  \ \  \____\ \  \____\ \  \ \  \|____|\  \\|____|\  \ \  \_|\ \|____|\  \              
+   \ \_______\ \_______\ \__\ \__\____\_\  \ ____\_\  \ \_______\____\_\  \             
+    \|_______|\|_______|\|__|\|__|\_________\\_________\|_______|\_________\            
+                                 \|_________\|_________|        \|_________|            
+                                                                                        
+                                                                                        
+ ________  ________  ___      ___ ________  ________   ________  _______   ________     
+|\   __  \|\   ___ \|\  \    /  /|\   __  \|\   ___  \|\   ____\|\  ___ \ |\   ___ \    
+\ \  \|\  \ \  \_|\ \ \  \  /  / | \  \|\  \ \  \\ \  \ \  \___|\ \   __/|\ \  \_|\ \   
+ \ \   __  \ \  \ \\ \ \  \/  / / \ \   __  \ \  \\ \  \ \  \    \ \  \_|/_\ \  \ \\ \  
+  \ \  \ \  \ \  \_\\ \ \    / /   \ \  \ \  \ \  \\ \  \ \  \____\ \  \_|\ \ \  \_\\ \ 
+   \ \__\ \__\ \_______\ \__/ /     \ \__\ \__\ \__\\ \__\ \_______\ \_______\ \_______\
+    \|__|\|__|\|_______|\|__|/       \|__|\|__|\|__| \|__|\|_______|\|_______|\|_______|
+
+"""
+
+# constructors
+@hops.component(
+    "/class_Addition",
+    name="ClassAddition",
+    nickname="ClassAddition",
+    description="Work with ClassAddition with CPython",
+    inputs=[
+        hs.HopsNumber("num1", "num1", "start with num1", access = hs.HopsParamAccess.ITEM),
+        hs.HopsNumber("num2", "num2", "start with num2", access = hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsNumber("sum", "sum", "sum", access = hs.HopsParamAccess.ITEM),
+        ],
+)
+def class_addition(a, b):
+    class Addition:
+        first = 0
+        second = 0
+        answer = 0
+        def __init__(self, f, s):
+            self.first = f
+            self.second = s
+        def display(self):
+            print("First number: ", self.first)
+            print("Second number: ", self.second)
+            print("Sum: ", self.answer)
+        def calculate(self):
+            self.answer = self.first + self.second
+            return self.answer
+    obj = Addition(a, b)
+    return obj.calculate()
+
+    obj.calculate()
+    obj.display()
+
+    return obj.answer
+
+#inheritance (string example nonsense)
+@hops.component(
+    "/Addition_inheritance",
+    name="ClassAdditionInheritance",
+    nickname="ClassAdditionInheritance",
+    description="Work with ClassAdditionInheritance with CPython",
+    inputs=[
+        hs.HopsNumber("num1", "num1", "start with num1", access = hs.HopsParamAccess.ITEM),
+        hs.HopsNumber("num2", "num2", "start with num2", access = hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsNumber("sum", "sum", "sum", access = hs.HopsParamAccess.ITEM),
+        ],
+)
+def addition_inheritance(a, b):
+    class Person(object):
+        def __init__(self, name, age):
+            self.name = name
+            self.age = age
+        def display(self):
+            print("Name: ", self.name)
+            print("Age: ", self.age)    
+    emp = Person("John", 36)    
+    emp.display()
+
+    class Emp(Person):
+        def Print(self):
+            print("Emp class called")
+    Emp_details = Emp("Mayank", 37)
+    Emp_details.display()
+    Emp_details.Print()
+    return Emp_details.age
+
+@hops.component(
+    "/single_inherit",
+    name="SingleInheritance",
+    nickname="SingleInheritance",
+    description="Work with SingleInheritance with CPython",
+    inputs=[
+        hs.HopsNumber("num1", "num1", "start with num1", access = hs.HopsParamAccess.ITEM),
+        hs.HopsNumber("num2", "num2", "start with num2", access = hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsNumber("sum", "sum", "sum", access = hs.HopsParamAccess.ITEM),
+        hs.HopsNumber("product", "product", "product", access = hs.HopsParamAccess.ITEM),   
+
+        ],
+)
+def single_inheritance(a, b):
+    class Addition:
+        def func1(self, a, b):
+            return a + b
+    class Multiplication(Addition):
+        def func2(self, a, b):
+            return a * b
+    object = Multiplication()
+    object.func1(a, b)
+    object.func2(a, b)
+    return object.func1(a, b), object.func2(a, b)
+
+
+@hops.component(
+    "/multiple_inherit",
+    name="MultipleInheritance",
+    nickname="MultipleInheritance",
+    description="Work with MultipleInheritance with CPython",
+    inputs=[    
+        hs.HopsNumber("num1", "num1", "start with num1", access = hs.HopsParamAccess.ITEM),
+        hs.HopsNumber("num2", "num2", "start with num2", access = hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsNumber("sum", "sum", "sum", access = hs.HopsParamAccess.ITEM),
+        hs.HopsNumber("product", "product", "product", access = hs.HopsParamAccess.ITEM),
+        hs.HopsNumber("addAndProduct", "addAndProduct", "addAndProduct", access = hs.HopsParamAccess.ITEM),
+        ],
+)
+def multiple_inherit(a, b):
+    class Addition:
+        def func1(self, a, b):
+            return a + b
+    class Multiplication:
+        def func2(self, a, b):
+            return a * b
+    class AdditionAndMultiplication(Addition, Multiplication):
+        def func3(self, a, b):
+            return a + b * b
+    object = AdditionAndMultiplication()
+    object.func1(a, b)
+    object.func2(a, b)
+    object.func3(a, b)
+    return object.func1(a, b), object.func2(a, b), object.func3(a, b)
+
+
+@hops.component(
+    "/multilevel",
+    name="MultilevelInheritance",
+    nickname="MultilevelInheritance",
+    description="Work with MultilevelInheritance with CPython",
+    inputs=[    
+        hs.HopsNumber("num1", "num1", "start with num1", access = hs.HopsParamAccess.ITEM),
+        hs.HopsNumber("num2", "num2", "start with num2", access = hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsNumber("finalOut", "finalOut", "finalOut", access = hs.HopsParamAccess.ITEM),
+        ],
+) 
+def multilevel_inherit(a, b):
+    #base class
+    class Addition:
+        def __init__(self, a, b):
+            self.a = a
+            self.b = b
+    # intermediate class
+    class Multiplication(Addition):
+        def __init__(self, a, b):
+            self.a = a
+            #invoking constructor of base class
+            Addition.__init__(self, a, b)
+    #Derived class's constructor
+    class AdditionAndMultiplication(Multiplication):
+        def __init__(self, c, a, b):
+            self.c = c
+            #invoking constructor of intermediate class
+            Multiplication.__init__(self, a, b)
+        def final_answer(self):
+            return self.a + self.b * self.b
+
+    #Driver code
+    s1 = AdditionAndMultiplication(10, a, b)
+    s1.final_answer()
+    return s1.final_answer()
+
+# Python program to demonstrate
+# Hierarchical Inheritance
+@hops.component(
+    "/hierarchical",
+    name="HierarchicalInheritance",
+    nickname="HierarchicalInheritance",
+    description="Work with HierarchicalInheritance with CPython",
+    inputs=[
+        hs.HopsNumber("num1", "num1", "start with num1", access = hs.HopsParamAccess.ITEM),
+        hs.HopsNumber("num2", "num2", "start with num2", access = hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsNumber("sum", "sum", "sum", access = hs.HopsParamAccess.ITEM),
+        hs.HopsNumber("product", "product", "product", access = hs.HopsParamAccess.ITEM),
+        hs.HopsNumber("addAndProduct", "addAndProduct", "addAndProduct", access = hs.HopsParamAccess.ITEM),
+        ],
+)
+def hierarchical_inherit(a, b):
+    #base class
+    class Addition:
+        def func1(self):
+            return a + b
+    # Derived class method 2
+    class Multiplication(Addition):
+        def func2(self):
+            return a * b
+    # Derived class method 3
+    class AdditionAndMultiplication(Multiplication):
+        def func3(self):
+            return a + b * b
+    # Driver code
+    object1 = Multiplication()
+    object2 = AdditionAndMultiplication()
+    object1.func1()
+    object1.func2()
+    object2.func1()
+    object2.func3()
+    return object1.func1(), object1.func2(), object2.func3()
+
+
+# Python program to demonstrate
+# hybrid inheritance
+@hops.component(
+    "/hybrid",
+    name="HybridInheritance",
+    nickname="HybridInheritance",
+    description="Work with HybridInheritance with CPython",
+    inputs=[
+        hs.HopsNumber("num1", "num1", "start with num1", access = hs.HopsParamAccess.ITEM),
+        hs.HopsNumber("num2", "num2", "start with num2", access = hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsNumber("sum", "sum", "sum", access = hs.HopsParamAccess.ITEM),
+        hs.HopsNumber("product", "product", "product", access = hs.HopsParamAccess.ITEM),
+        hs.HopsNumber("addAndProduct", "addAndProduct", "addAndProduct", access = hs.HopsParamAccess.ITEM),
+        ],
+)
+def hybrid_inherit(a, b):
+    #base class
+    class Addition:
+        def func1(self):
+            return a + b
+    # intermediate class
+    class Multiplication(Addition):
+        def func2(self):
+            return a * b
+    #Derived class's constructor
+    class AdditionAndMultiplication(Multiplication):
+        def func3(self):
+            return a + b * b
+    #Driver code
+    object = AdditionAndMultiplication()
+    object.func1()
+    object.func2()
+    return object.func1(), object.func2(), object.func3()
+
+# Python program to demonstrate
+# protected members
+@hops.component(
+    "/protected",
+    name="ProtectedMembers",
+    nickname="ProtectedMembers",
+    description="Work with ProtectedMembers with CPython",
+    inputs=[
+        hs.HopsNumber("num1", "num1", "start with num1", access = hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsNumber("sum", "sum", "sum", access = hs.HopsParamAccess.ITEM),
+        hs.HopsNumber("square", "square", "square", access = hs.HopsParamAccess.ITEM),
+        ],
+)
+def protected_members(a):
+    # creating a base class
+    class Addition:
+        def __init__(self, a):
+            #protected member
+            self._a = a
+    # Creating object of derived class
+    class Derived(Addition):
+        def __init__(self, a):
+            # Calling a constructor of base class
+            Addition.__init__(self, a)
+            # modifying protected variable:
+            self._a = a * a
+    object1 = Addition(a)
+    object2 = Derived(a)
+    return object1._a, object2._a
+
+#Python program to demonstrate
+# private members
+@hops.component(
+    "/private",
+    name="PrivateMembers",
+    nickname="PrivateMembers",
+    description="Work with PrivateMembers with CPython",
+    inputs=[
+        hs.HopsNumber("num1", "num1", "start with num1", access = hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsNumber("sum", "sum", "sum", access = hs.HopsParamAccess.ITEM),
+        hs.HopsNumber("square", "square", "square", access = hs.HopsParamAccess.ITEM),
+        ],
+)   
+def private_members(a):
+    # creating a base class
+    class Addition:
+        def __init__(self, a):
+            self.a = a
+            self.__c = a * a
+    # Creating object of derived class
+    class Derived(Addition):
+        def __init__(self, a):
+            Addition.__init__(self, a)
+            self.__c = a * a
+    object1 = Addition(a)
+    return object1.a, object1.__c
+
+
+# Python program to demonstrate
+# in-built polymorphism functions
+# len() being used for a string
+@hops.component(
+    "/polymorphism",
+    name="Polymorphism",
+    nickname="Polymorphism",
+    description="Work with Polymorphism with CPython",
+    inputs=[
+        hs.HopsString("str1", "str1", "start with str1", access = hs.HopsParamAccess.ITEM),
+        hs.HopsNumber("num1", "num1", "start with num1", access = hs.HopsParamAccess.LIST),
+    ],
+    outputs=[
+        hs.HopsNumber("len", "len", "len", access = hs.HopsParamAccess.ITEM),
+        hs.HopsNumber("len2", "len2", "len2", access = hs.HopsParamAccess.ITEM),   
+        ],
+)
+def polymorphism(str1, num1):
+    # len() being used for a string
+    return len(str1), len(num1)
+
+# a simple Python function to demonstrate
+# polymorphism add
+@hops.component(
+    "/polymorphism_add",
+    name="PolymorphismAdd",
+    nickname="PolymorphismAdd",
+    description="Work with PolymorphismAdd with CPython",   
+    inputs=[
+        hs.HopsNumber("num1", "num1", "start with num1", access = hs.HopsParamAccess.ITEM),
+        hs.HopsNumber("num2", "num2", "start with num2", access = hs.HopsParamAccess.ITEM),
+        hs.HopsNumber("num3", "num3", "start with num3", access = hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsNumber("sum", "sum", "sum", access = hs.HopsParamAccess.ITEM),
+        ],
+)
+def polymorphism_add(num1, num2, num3 = 0):
+    final = num1 + num2 + num3   
+    return final
+
+# polymorphism calculator
+@hops.component(
+    "/poly_calculator",
+    name="PolymorphismCalculator",
+    nickname="PolymorphismCalculator",
+    description="Work with PolymorphismCalculator with CPython",
+    inputs=[
+        hs.HopsNumber("num1", "num1", "start with num1", access = hs.HopsParamAccess.ITEM),
+        hs.HopsNumber("num2", "num2", "start with num2", access = hs.HopsParamAccess.ITEM),
+        hs.HopsNumber("num3", "num3", "start with num3", access = hs.HopsParamAccess.ITEM),
+        hs.HopsNumber("num4", "num4", "start with num4", access = hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsNumber("sum", "sum", "sum", access = hs.HopsParamAccess.ITEM),
+        hs.HopsNumber("sum2", "sum2", "sum2", access = hs.HopsParamAccess.ITEM),
+        hs.HopsNumber("product", "product", "product", access = hs.HopsParamAccess.ITEM),
+        hs.HopsNumber("product2", "product2", "product2", access = hs.HopsParamAccess.ITEM),
+        hs.HopsNumber("division", "division", "division", access = hs.HopsParamAccess.ITEM),
+        hs.HopsNumber("division2", "division2", "division2", access = hs.HopsParamAccess.ITEM),
+        hs.HopsNumber("subtraction", "subtraction", "subtraction", access = hs.HopsParamAccess.ITEM),
+        hs.HopsNumber("subtraction2", "subtraction2", "subtraction2", access = hs.HopsParamAccess.ITEM),
+        ],
+)
+def polymorphism_calculator(num1, num2, num3, num4):
+    class Calc1():
+        def addition(self, num1, num2):
+            return num1 + num2
+        def subtraction(self, num1, num2):
+            return num1 - num2
+        def multiplication(self, num1, num2):
+            return num1 * num2
+        def division(self, num1, num2):
+            return num1 / num2
+    class Calc2():
+        def addition(self, num3, num4):
+            return num3 + num4
+        def subtraction(self, num3, num4):
+            return num3 - num4
+        def multiplication(self, num3, num4):
+            return num3 * num4
+        def division(self, num3, num4):
+            return num3 / num4
+    obj_calc1 = Calc1()
+    obj_calc2 = Calc2()
+    return obj_calc1.addition(num1, num2), obj_calc2.addition(num3, num4), obj_calc1.multiplication(num1, num2), obj_calc2.multiplication(num3, num4), obj_calc1.division(num1, num2), obj_calc2.division(num3, num4), obj_calc1.subtraction(num1, num2), obj_calc2.subtraction(num3, num4)
+
+# method overriding
+@hops.component(
+    "/method_override",
+    name="MethodOverride",
+    nickname="MethodOverride",
+    description="Work with MethodOverride with CPython",
+    inputs=[
+        hs.HopsNumber("num1", "num1", "start with num1", access = hs.HopsParamAccess.ITEM),
+        hs.HopsNumber("num2", "num2", "start with num2", access = hs.HopsParamAccess.ITEM),
+        hs.HopsNumber("num3", "num3", "start with num3", access = hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsNumber("calc1_add1", "calc1_add1", "calc1_add1", access = hs.HopsParamAccess.ITEM),
+        hs.HopsNumber("calc1_add2", "calc1_add2", "calc1_add2", access = hs.HopsParamAccess.ITEM),
+        hs.HopsNumber("calc2_add1", "calc2_add1", "calc2_add1", access = hs.HopsParamAccess.ITEM),
+        hs.HopsNumber("calc2_add2", "calc2_add2", "calc2_add2", access = hs.HopsParamAccess.ITEM),
+        hs.HopsNumber("calc3_add1", "calc3_add1", "calc3_add1", access = hs.HopsParamAccess.ITEM),
+        hs.HopsNumber("calc3_add2", "calc3_add2", "calc3_add2", access = hs.HopsParamAccess.ITEM),
+        ],
+)
+def method_override(num1, num2, num3):
+    class Calc1():
+        def addition1(self, num1, num2):
+            return num1 + num2
+        def addition2(self, num1, num2, num3):
+            return num1 + num2 + num3
+    class Calc2(Calc1):
+        def addition2(self, num1, num2, num3):
+            return num1 + num2 + num3 + 1
+    class Calc3(Calc1):
+        def addition2(self, num1, num2):
+            return num1 + num2 + 1
+    obj_calc1 = Calc1()
+    obj_calc2 = Calc2()
+    obj_calc3 = Calc3()
+    return obj_calc1.addition1(num1, num2), obj_calc1.addition2(num1, num2, num3), obj_calc2.addition1(num1, num2), obj_calc2.addition2(num1, num2, num3), obj_calc3.addition1(num1, num2), obj_calc3.addition2(num1, num2) 
+
+# Skip Polymorphism with a Function and object, save for later
+
+# Skip Class or Static Variables in Python
+
+# Skip Class Methon vs Static Method in Python
+
+"""
+ _______      ___    ___ ________  _______   ________  _________  ___  ________  ________      
+|\  ___ \    |\  \  /  /|\   ____\|\  ___ \ |\   __  \|\___   ___\\  \|\   __  \|\   ___  \    
+\ \   __/|   \ \  \/  / | \  \___|\ \   __/|\ \  \|\  \|___ \  \_\ \  \ \  \|\  \ \  \\ \  \   
+ \ \  \_|/__  \ \    / / \ \  \    \ \  \_|/_\ \   ____\   \ \  \ \ \  \ \  \\\  \ \  \\ \  \  
+  \ \  \_|\ \  /     \/   \ \  \____\ \  \_|\ \ \  \___|    \ \  \ \ \  \ \  \\\  \ \  \\ \  \ 
+   \ \_______\/  /\   \    \ \_______\ \_______\ \__\        \ \__\ \ \__\ \_______\ \__\\ \__\
+    \|_______/__/ /\ __\    \|_______|\|_______|\|__|         \|__|  \|__|\|_______|\|__| \|__|
+             |__|/ \|__|                                                                       
+                                                                                               
+                                                                                               
+ ___  ___  ________  ________   ________  ___       ___  ________   ________                   
+|\  \|\  \|\   __  \|\   ___  \|\   ___ \|\  \     |\  \|\   ___  \|\   ____\                  
+\ \  \\\  \ \  \|\  \ \  \\ \  \ \  \_|\ \ \  \    \ \  \ \  \\ \  \ \  \___|                  
+ \ \   __  \ \   __  \ \  \\ \  \ \  \ \\ \ \  \    \ \  \ \  \\ \  \ \  \  ___                
+  \ \  \ \  \ \  \ \  \ \  \\ \  \ \  \_\\ \ \  \____\ \  \ \  \\ \  \ \  \|\  \               
+   \ \__\ \__\ \__\ \__\ \__\\ \__\ \_______\ \_______\ \__\ \__\\ \__\ \_______\              
+    \|__|\|__|\|__|\|__|\|__| \|__|\|_______|\|_______|\|__|\|__| \|__|\|_______|  
+
+"""
+
+
+
+
 
 
 
 
 if __name__ == "__main__":
     app.run(debug=True)
-
-
-
-
-
