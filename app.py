@@ -1958,12 +1958,540 @@ def method_override(num1, num2, num3):
  \ \   __  \ \   __  \ \  \\ \  \ \  \ \\ \ \  \    \ \  \ \  \\ \  \ \  \  ___                
   \ \  \ \  \ \  \ \  \ \  \\ \  \ \  \_\\ \ \  \____\ \  \ \  \\ \  \ \  \|\  \               
    \ \__\ \__\ \__\ \__\ \__\\ \__\ \_______\ \_______\ \__\ \__\\ \__\ \_______\              
-    \|__|\|__|\|__|\|__|\|__| \|__|\|_______|\|_______|\|__|\|__| \|__|\|_______|  
-
+    \|__|\|__|\|__|\|__|\|__| \|__|\|_______|\|_______|\|__|\|__| \|__|\|_______|                                                                                               
 """
 
+@hops.component(
+    "/_exception1",
+    name="Exception",
+    nickname="Exception",
+    description="Work with Exception with CPython",
+    inputs=[
+        hs.HopsNumber("numList", "numList", "start with numList", access = hs.HopsParamAccess.LIST),
+        hs.HopsInteger("num1", "num1", "start with num1", access = hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsNumber("numList", "numList", "numList", access = hs.HopsParamAccess.LIST),
+    ],
+)
+def exception(numList, num1):
+    try:
+        return numList[num1]
+    except IndexError:
+        return -1
+
+# skip Specific Exception in Python
+# skip Try with Else Clause in Python
+# skip Finally Keyword in Python
+# skip Raising Exceptions in Python
+
+"""
+ ________ ___  ___       _______                                                 
+|\  _____\\  \|\  \     |\  ___ \                                                
+\ \  \__/\ \  \ \  \    \ \   __/|                                               
+ \ \   __\\ \  \ \  \    \ \  \_|/__                                             
+  \ \  \_| \ \  \ \  \____\ \  \_|\ \                                            
+   \ \__\   \ \__\ \_______\ \_______\                                           
+    \|__|    \|__|\|_______|\|_______|                                           
+                                                                                 
+                                                                                 
+                                                                                 
+ ___  ___  ________  ________   ________  ___       ___  ________   ________     
+|\  \|\  \|\   __  \|\   ___  \|\   ___ \|\  \     |\  \|\   ___  \|\   ____\    
+\ \  \\\  \ \  \|\  \ \  \\ \  \ \  \_|\ \ \  \    \ \  \ \  \\ \  \ \  \___|    
+ \ \   __  \ \   __  \ \  \\ \  \ \  \ \\ \ \  \    \ \  \ \  \\ \  \ \  \  ___  
+  \ \  \ \  \ \  \ \  \ \  \\ \  \ \  \_\\ \ \  \____\ \  \ \  \\ \  \ \  \|\  \ 
+   \ \__\ \__\ \__\ \__\ \__\\ \__\ \_______\ \_______\ \__\ \__\\ \__\ \_______\
+    \|__|\|__|\|__|\|__|\|__| \|__|\|_______|\|_______|\|__|\|__| \|__|\|_______|                                                                                             
+"""
+@hops.component(
+    "/read_file",
+    name="Read File",
+    nickname="Read File",
+    description="Read File with Python",
+    inputs=[
+        hs.HopsString("file_name", "file_name", "start with file_name", access = hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsString("file_content", "file_content", "file_content", access = hs.HopsParamAccess.ITEM),
+    ],
+)
+def read_file(file_name):
+    with open(file_name, "r") as f:
+        return f.read()
+
+@hops.component(
+    "/_read_file2",
+    name="Read File",
+    nickname="Read File",
+    description="Read File with Python",
+    inputs=[
+        hs.HopsString("file_name", "file_name", "start with file_name", access = hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsString("file_content", "file_content", "file_content", access = hs.HopsParamAccess.ITEM),
+    ],
+)   
+def read_file2(file_name):
+    file = open(file_name, "r")
+    for each in file:
+        return each
+
+@hops.component(
+    "/write_file",
+    name="Write File",
+    nickname="Write File",
+    description="Write File with Python",
+    inputs=[
+        hs.HopsString("file_name", "file_name", "start with file_name", access = hs.HopsParamAccess.ITEM),
+        hs.HopsString("file_content", "file_content", "start with file_content", access = hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsString("file_content", "file_content", "file_content", access = hs.HopsParamAccess.ITEM),
+    ],
+)
+def write_file(file_name, file_content):
+    with open(file_name, "w") as f:
+        f.write(file_content)
+        return file_content
+
+@hops.component(
+    "/append_file",
+    name="Append File",
+    nickname="Append File",
+    description="Append File with Python",
+    inputs=[
+        hs.HopsString("file_name", "file_name", "start with file_name", access = hs.HopsParamAccess.ITEM),
+        hs.HopsString("file_content", "file_content", "start with file_content", access = hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsString("file_content", "file_content", "file_content", access = hs.HopsParamAccess.ITEM),
+    ],
+)   
+def append_file(file_name, file_content):
+    with open(file_name, "a") as f:
+        f.write(file_content)
+        return file_content
+
+@hops.component(
+    "/read_file_lines",
+    name="Read File Lines",
+    nickname="Read File Lines",
+    description="Read File Lines with Python",
+    inputs=[
+        hs.HopsString("file_name", "file_name", "start with file_name", access = hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsString("file_content", "file_content", "file_content", access = hs.HopsParamAccess.ITEM),
+    ],      
+)
+def read_file_lines(file_name):
+    with open(file_name, "r") as f:
+        return f.readlines()
+
+# Python code to illustrate read() mode
+@hops.component(
+    "/read_file_read",
+    name="Read File Read",
+#    description="Read File Read with Python",
+    inputs=[
+        hs.HopsString("file_name", "file_name", "start with file_name", access = hs.HopsParamAccess.ITEM),
+        hs.HopsInteger("numChar", "numChar", "start with numChar", access = hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsString("file_content", "file_content", "file_content", access = hs.HopsParamAccess.ITEM),
+    ],
+)
+def read_file_read(file_name, numChar):
+    file = open(file_name, "r")
+    return file.read(numChar)
+
+# Creating a file using write() mode
+@hops.component(
+    "/create_file",
+    name="Create File",
+    nickname="Create File",
+    description="Create File with Python",
+    inputs=[
+        hs.HopsString("file_name", "file_name", "start with file_name", access = hs.HopsParamAccess.ITEM),
+        hs.HopsString("file_content", "file_content", "start with file_content", access = hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsString("file_content", "file_content", "file_content", access = hs.HopsParamAccess.ITEM),
+    ],
+)
+def create_file(file_name, file_content):
+    with open(file_name, "w") as f:
+        f.write(file_content)
+        return file_content
+        f.close()
 
 
+# Python code to illustrate append() mode
+@hops.component(
+    "/append_file_append",
+    name="Append File Append",
+    nickname="Append File Append",
+    description="Append File Append with Python",
+    inputs=[
+        hs.HopsString("file_name", "file_name", "start with file_name", access = hs.HopsParamAccess.ITEM),
+        hs.HopsString("file_content", "file_content", "start with file_content", access = hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsString("file_content", "file_content", "file_content", access = hs.HopsParamAccess.ITEM),
+    ],
+)
+def append_file_append(file_name, file_content):
+    with open(file_name, "a") as f:
+        f.write(file_content)
+        return file_content
+        f.close()
+
+# with() methond closes the file automatically
+
+# Pythoncode to illuatrate split() method
+@hops.component(
+    "/split_file",
+    name="Split File",
+    nickname="Split File",
+    description="Split File with Python",
+    inputs=[
+        hs.HopsString("file_name", "file_name", "start with file_name", access = hs.HopsParamAccess.ITEM),
+        hs.HopsString("file_content", "file_content", "start with file_content", access = hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsString("file_content", "file_content", "file_content", access = hs.HopsParamAccess.LIST),
+    ],
+)
+def split_file(file_name, file_content):
+    with open(file_name, "r") as f:
+        word = []
+        data = f.readlines()
+        for line in data:
+            word.append(line.split())
+        return word
+
+
+# Opening a file
+@hops.component(
+    "/open_file",
+    name="Open File",
+    nickname="Open File",
+    description="Open File with Python",
+    inputs=[
+        hs.HopsString("file_name", "file_name", "start with file_name", access = hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsString("file_content", "file_content", "file_content", access = hs.HopsParamAccess.ITEM),
+    ],
+)
+def open_file(file_name):
+    with open(file_name, "r") as f:
+        return f.read()
+
+
+# Open file in append mode
+@hops.component(
+    "/open_file_append",
+    name="Open File Append",
+    nickname="Open File Append",
+    description="Open File Append with Python",
+    inputs=[
+        hs.HopsString("file_name", "file_name", "start with file_name", access = hs.HopsParamAccess.ITEM),
+        hs.HopsString("file_content", "file_content", "start with file_content", access = hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsString("file_content", "file_content", "file_content", access = hs.HopsParamAccess.ITEM),
+    ],
+)
+def open_file_append(file_name, file_content):
+    with open(file_name, "a") as f:
+        f.write(file_content)
+        return file_content
+        f.close()
+
+# open file on desktop or anywhere on drive C: or D:
+@hops.component(
+    "/open_file_desktop",
+    name="Open File Desktop",
+    nickname="Open File Desktop",
+    description="Open File Desktop with Python",
+    inputs=[
+        hs.HopsString("file_name", "file_name", "start with file_name", access = hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsString("file_content", "file_content", "file_content", access = hs.HopsParamAccess.ITEM),
+    ],
+)
+def open_file_desktop(file_name):
+    with open(file_name, "r") as f:
+        return f.read()
+    f.close()
+
+# read, readlines, readline, write, append, split, close
+
+# Python code to illustrate readlines() method
+@hops.component(
+    "/readlines_file",  
+    name="Readlines File",
+    nickname="Readlines File",
+    description="Readlines File with Python",
+    inputs=[
+        hs.HopsString("file_name", "file_name", "start with file_name", access = hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsString("file_content", "file_content", "file_content", access = hs.HopsParamAccess.LIST),
+    ],
+)
+def readlines_file(file_name):
+    with open(file_name, "r") as f:
+        return f.readlines()
+    f.close()
+
+@hops.component(
+    "/readline_file",
+    name="Readline File",
+    nickname="Readline File",
+    description="Readline File with Python",
+    inputs=[
+        hs.HopsString("file_name", "file_name", "start with file_name", access = hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsString("file_content", "file_content", "file_content", access = hs.HopsParamAccess.ITEM),
+    ],
+)
+def readline_file(file_name):
+    with open(file_name, "r") as f:
+        return f.readline()
+    f.close()
+
+@hops.component(
+    "/write_file",
+    name="Write File",
+    nickname="Write File",
+    description="Write File with Python",
+    inputs=[
+        hs.HopsString("file_name", "file_name", "start with file_name", access = hs.HopsParamAccess.ITEM),
+        hs.HopsString("file_content", "file_content", "start with file_content", access = hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsString("file_content", "file_content", "file_content", access = hs.HopsParamAccess.ITEM),
+    ],
+)
+def write_file(file_name, file_content):
+    with open(file_name, "w") as f:
+        f.write(file_content)
+        return file_content
+        f.close()
+
+@hops.component(
+    "/append_file",
+    name="Append File",
+    nickname="Append File",
+    description="Append File with Python",
+    inputs=[
+        hs.HopsString("file_name", "file_name", "start with file_name", access = hs.HopsParamAccess.ITEM),
+        hs.HopsString("file_content", "file_content", "start with file_content", access = hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsString("file_content", "file_content", "file_content", access = hs.HopsParamAccess.ITEM),
+    ],
+)
+def append_file(file_name, file_content):
+    with open(file_name, "a") as f:
+        f.write(file_content)
+        return file_content
+        f.close()
+
+@hops.component(
+    "/split_file",
+    name="Split File",
+    nickname="Split File",
+    description="Split File with Python",
+    inputs=[
+        hs.HopsString("file_name", "file_name", "start with file_name", access = hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsString("file_content", "file_content", "file_content", access = hs.HopsParamAccess.LIST),
+    ],
+)
+def split_file(file_name):
+    with open(file_name, "r") as f:
+        return f.split()
+    f.close()
+
+@hops.component(
+    "/close_file",
+    name="Close File",
+    nickname="Close File",
+    description="Close File with Python",
+    inputs=[
+        hs.HopsString("file_name", "file_name", "start with file_name", access = hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsString("file_content", "file_content", "file_content", access = hs.HopsParamAccess.ITEM),
+    ],
+)
+def close_file(file_name):
+    with open(file_name, "r") as f:
+        return f.close()
+    f.close()
+
+@hops.component(
+    "/read_file",
+    name="Read File",
+    nickname="Read File",
+    description="Read File with Python",
+    inputs=[
+        hs.HopsString("file_name", "file_name", "start with file_name", access = hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsString("file_content", "file_content", "file_content", access = hs.HopsParamAccess.ITEM),
+    ],
+)
+def read_file(file_name):
+    with open(file_name, "r") as f:
+        return f.read()
+    f.close()
+
+@hops.component(
+    "/read_file_binary",
+    name="Read File Binary",
+    nickname="Read File Binary",
+    description="Read File Binary with Python",
+    inputs=[
+        hs.HopsString("file_name", "file_name", "start with file_name", access = hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsString("file_content", "file_content", "file_content", access = hs.HopsParamAccess.ITEM),
+    ],
+)
+def read_file_binary(file_name):
+    with open(file_name, "rb") as f:
+        return f.read()
+    f.close()
+
+@hops.component(
+    "/read_file_binary_lines",
+    name="Read File Binary Lines",
+    nickname="Read File Binary Lines",
+    description="Read File Binary Lines with Python",
+    inputs=[
+        hs.HopsString("file_name", "file_name", "start with file_name", access = hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsString("file_content", "file_content", "file_content", access = hs.HopsParamAccess.LIST),
+    ],
+)
+def read_file_binary_lines(file_name):
+    with open(file_name, "rb") as f:
+        return f.readlines()
+    f.close()   
+
+@hops.component(
+    "/read_file_binary_line",
+    name="Read File Binary Line",
+    nickname="Read File Binary Line",
+    description="Read File Binary Line with Python",
+    inputs=[
+        hs.HopsString("file_name", "file_name", "start with file_name", access = hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsString("file_content", "file_content", "file_content", access = hs.HopsParamAccess.ITEM),
+    ],
+)
+def read_file_binary_line(file_name):
+    with open(file_name, "rb") as f:
+        return f.readline()
+    f.close()
+
+@hops.component(
+    "/read_file_binary_lines_split",
+    name="Read File Binary Lines Split",
+    nickname="Read File Binary Lines Split",
+    description="Read File Binary Lines Split with Python",
+    inputs=[
+        hs.HopsString("file_name", "file_name", "start with file_name", access = hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsString("file_content", "file_content", "file_content", access = hs.HopsParamAccess.LIST),
+    ],
+)
+def read_file_binary_lines_split(file_name):
+    with open(file_name, "rb") as f:
+        return f.readlines().split()
+    f.close()
+
+@hops.component(
+    "/read_file_binary_line_split",
+    name="Read File Binary Line Split",
+    nickname="Read File Binary Line Split",
+    description="Read File Binary Line Split with Python",
+    inputs=[
+        hs.HopsString("file_name", "file_name", "start with file_name", access = hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsString("file_content", "file_content", "file_content", access = hs.HopsParamAccess.LIST),
+    ],
+)
+def read_file_binary_line_split(file_name):
+    with open(file_name, "rb") as f:
+        return f.readline().split()
+    f.close()
+
+@hops.component(
+    "/read_file_binary_lines_split_int",
+    name="Read File Binary Lines Split Int",
+    nickname="Read File Binary Lines Split Int",
+    description="Read File Binary Lines Split Int with Python",
+    inputs=[
+        hs.HopsString("file_name", "file_name", "start with file_name", access = hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsString("file_content", "file_content", "file_content", access = hs.HopsParamAccess.LIST),
+    ],
+)
+def read_file_binary_lines_split_int(file_name):
+    with open(file_name, "rb") as f:
+        return [int(x) for x in f.readlines().split()]
+    f.close()
+
+# seek and tell
+@hops.component(
+    "/seek_file",
+    name="Seek File",
+    nickname="Seek File",
+    description="Seek File with Python",
+    inputs=[
+        hs.HopsString("file_name", "file_name", "start with file_name", access = hs.HopsParamAccess.ITEM),
+        hs.HopsInteger("seek_position", "seek_position", "seek_position", access = hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsString("file_content", "file_content", "file_content", access = hs.HopsParamAccess.ITEM),
+    ],
+)
+def seek_file(file_name, seek_position):
+    with open(file_name, "r") as f:
+        f.seek(seek_position)
+        return f.read()
+    f.close()
+
+@hops.component(
+    "/tell_file",
+    name="Tell File",
+    nickname="Tell File",
+    description="Tell File with Python",
+    inputs=[
+        hs.HopsString("file_name", "file_name", "start with file_name", access = hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsInteger("file_position", "file_position", "file_position", access = hs.HopsParamAccess.ITEM),
+    ],
+)
+def tell_file(file_name):
+    with open(file_name, "r") as f:
+        return f.tell()
+    f.close()
 
 
 
