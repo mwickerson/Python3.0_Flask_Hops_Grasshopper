@@ -15,8 +15,17 @@ import random
 
 import numpy as np
 import numpy.linalg
-import matplotlib
-import matplotlib.pyplot as plt
+
+# import matplotlib
+# import matplotlib.pyplot as plt
+
+import pandas as pd
+import io
+
+# import scipy
+# import seaborn
+# import sklearn
+
 
 # register hops app as middleware
 app = Flask(__name__)
@@ -30,9 +39,6 @@ def help():
 
 """
 import json
-import scipy
-python 
-import pandas as pd
 import sklearn as skl
 import sklearn.linear_model as linm
 import sklearn.cluster as cluster
@@ -4477,228 +4483,1120 @@ def array_transpose(aList):
     return array_transpose.tolist()
 
 """
-███╗   ███╗ █████╗ ████████╗██████╗ ██╗      ██████╗ ████████╗██╗     ██╗██████╗ 
-████╗ ████║██╔══██╗╚══██╔══╝██╔══██╗██║     ██╔═══██╗╚══██╔══╝██║     ██║██╔══██╗
-██╔████╔██║███████║   ██║   ██████╔╝██║     ██║   ██║   ██║   ██║     ██║██████╔╝
-██║╚██╔╝██║██╔══██║   ██║   ██╔═══╝ ██║     ██║   ██║   ██║   ██║     ██║██╔══██╗
-██║ ╚═╝ ██║██║  ██║   ██║   ██║     ███████╗╚██████╔╝   ██║   ███████╗██║██████╔╝
-╚═╝     ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝     ╚══════╝ ╚═════╝    ╚═╝   ╚══════╝╚═╝╚═════╝ 
+███╗   ██╗██╗   ██╗███╗   ███╗██████╗ ██╗   ██╗                           
+████╗  ██║██║   ██║████╗ ████║██╔══██╗╚██╗ ██╔╝                           
+██╔██╗ ██║██║   ██║██╔████╔██║██████╔╝ ╚████╔╝                            
+██║╚██╗██║██║   ██║██║╚██╔╝██║██╔═══╝   ╚██╔╝                             
+██║ ╚████║╚██████╔╝██║ ╚═╝ ██║██║        ██║                              
+╚═╝  ╚═══╝ ╚═════╝ ╚═╝     ╚═╝╚═╝        ╚═╝                              
+                                                                          
+ ██████╗ ██████╗ ███╗   ██╗████████╗██╗███╗   ██╗██╗   ██╗███████╗██████╗ 
+██╔════╝██╔═══██╗████╗  ██║╚══██╔══╝██║████╗  ██║██║   ██║██╔════╝██╔══██╗
+██║     ██║   ██║██╔██╗ ██║   ██║   ██║██╔██╗ ██║██║   ██║█████╗  ██║  ██║
+██║     ██║   ██║██║╚██╗██║   ██║   ██║██║╚██╗██║██║   ██║██╔══╝  ██║  ██║
+╚██████╗╚██████╔╝██║ ╚████║   ██║   ██║██║ ╚████║╚██████╔╝███████╗██████╔╝
+ ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝   ╚═╝   ╚═╝╚═╝  ╚═══╝ ╚═════╝ ╚══════╝╚═════╝ 
 """
-# matplotlib    and numpy for plotting
 
-# linear regrassion using least squares nethod
-# w1x + w2 = y
-# w1 = (x1 * y - x2 * y) / (x1^2 + x2^2)
-# x co-ordinates
+# Array creation using lists
+# create array from list
 @hops.component(
-    "/linear_regression",
-    name=("Linear Regression"),
-    description=("Linear Regression"),
+    "/array_from_listWS",
+    name=("Array From List Part 2"),
+    description=("Array From List Part 2"),
     category="numpy",
     subcategory="array",
     inputs=[
-        hs.HopsNumber("xList", "xList", "xList", access = hs.HopsParamAccess.LIST),
-        hs.HopsNumber("yList", "yList", "yList", access = hs.HopsParamAccess.LIST),
+        hs.HopsNumber("aList", "aList", "aList", access = hs.HopsParamAccess.LIST),
     ],
     outputs=[
-        hs.HopsNumber("linear_regression", "linear_regression", "linear_regression", access = hs.HopsParamAccess.LIST),
+        hs.HopsNumber("array_from_listPart2", "array_from_listPart2", "array_from_listPart2", access = hs.HopsParamAccess.LIST),
     ]
 )
-def linear_regression(xList, yList):
+def array_from_listWS(aList):
     """
-    Linear Regression
+    Array From List Part 2
     """
-    import matplotlib.pyplot as plt
     import numpy as np
-    x = np.array(xList)
-    y = np.array(yList)
-    x1 = x[0]
-    x2 = x[1]
-    y1 = y[0]
-    y2 = y[1]
-    w1 = (x1 * y1 - x2 * y2) / (x1**2 + x2**2)
-    w2 = (x1 * y2 - x2 * y1) / (x1**2 + x2**2)
-    linear_regression = [w1, w2]
-    return linear_regression    
+    listOut = []
+    arr = np.array(aList)
+    for i in arr:
+        print(i)
+        listOut.append(i)
+    return listOut
 
 @hops.component(
-    "/linear_regression_plot",
-    name=("Linear Regression Plot"),
-    description=("Linear Regression Plot"),
+    "/array_from_listWSb",
+    name=("Array From List Part 2b"),
+    description=("Array From List Part 2b"),
     category="numpy",
     subcategory="array",
     inputs=[
-        hs.HopsNumber("xList", "xList", "xList", access = hs.HopsParamAccess.LIST),
-        hs.HopsNumber("yList", "yList", "yList", access = hs.HopsParamAccess.LIST),
+        hs.HopsNumber("aList", "aList", "aList", access = hs.HopsParamAccess.LIST),
     ],
     outputs=[
-        hs.HopsBoolean("linear_regression_plot", "linear_regression_plot", "linear_regression_plot", access = hs.HopsParamAccess.LIST),
+        hs.HopsNumber("array_from_listPart2b", "array_from_listPart2b", "array_from_listPart2b", access = hs.HopsParamAccess.LIST),
     ]
 )
-def linear_regression_plot(xList, yList):
+def array_from_listWSb(aList):
     """
-    Linear Regression Plot
+    Array From List Part 2b
     """
-    import matplotlib.pyplot as plt
     import numpy as np
-    x = np.array(xList)
-    A = np.array([x, np.ones(len(x))])
-    # linearly generated sequence
-    y = np.array(yList)
-    # obtaining the parameters of the regression line
-    w = np.linalg.lstsq(A.T, y)[0]
-    # plotting the regression line
-    line = w[0] * x + w[1] # regression line
-    plt.plot(x, line, 'r-', label='Linear regression')
-    plt.plot(x, y, 'o', label='Original data')
-    plt.show()
-    return True
+    arr = np.array(aList)
+    for i in arr:
+        print(i)
+    print(arr)
+    return aList
 
-# matplotlib functions for plotting
+# create an array from 2 lists
 @hops.component(
-    "/plot_scatter1",
-    name=("Plot Scatter"),
-    description=("Plot Scatter"),
+    "/_2lists9",
+    name=("Array From List Part 3"),
+    description=("Array From List Part 3"),
     category="numpy",
     subcategory="array",
     inputs=[
-        hs.HopsNumber("xList", "xList", "xList", access = hs.HopsParamAccess.LIST),
-        hs.HopsNumber("yList", "yList", "yList", access = hs.HopsParamAccess.LIST),
+        hs.HopsNumber("aList", "aList", "aList", access = hs.HopsParamAccess.LIST),
+        hs.HopsNumber("bList", "bList", "bList", access = hs.HopsParamAccess.LIST),
     ],
     outputs=[
-        hs.HopsBoolean("plot_scatter", "plot_scatter", "plot_scatter", access = hs.HopsParamAccess.LIST),
+        hs.HopsNumber("L0", "L0", "L0", access = hs.HopsParamAccess.LIST),
+        hs.HopsNumber("L1", "L1", "L1", access = hs.HopsParamAccess.LIST),
     ]
 )
-def plot_scatter(xList, yList):
-
-    import matplotlib.pyplot as plt
+def _2lists9(aList, bList):
+    """
+    Array From List Part 3
+    """
     import numpy as np
-    x = np.array(xList)
-    y = np.array(yList)
-    plt.scatter(x, y)
-    plt.show()
-    return True
+    arr = np.array([aList, bList])
+    print(arr)
+    print(arr.tolist())
+    print(arr.tolist()[0])
+    print(arr.tolist()[1])
+    #print(arr.list_to_tree()) not working
+    # use entwine node in gh to convert lists to tree
+    return arr.tolist()[0], arr.tolist()[1]
 
-# matplotlib functions for plotting
+
+# transpose array
+# create an array from 2 lists
 @hops.component(
-    "/plot_graph",
-    name=("Plot Graph"),
-    description=("Plot Graph"),
+    "/_2lists_Transpose",
+    name=("Array From List Part 3"),
+    description=("Array From List Part 3"),
     category="numpy",
     subcategory="array",
     inputs=[
-        hs.HopsNumber("xList", "xList", "xList", access = hs.HopsParamAccess.LIST),
-        hs.HopsNumber("yList", "yList", "yList", access = hs.HopsParamAccess.LIST),
+        hs.HopsNumber("aList", "aList", "aList", access = hs.HopsParamAccess.LIST),
+        hs.HopsNumber("bList", "bList", "bList", access = hs.HopsParamAccess.LIST),
     ],
     outputs=[
-        hs.HopsBoolean("plot_graph", "plot_graph", "plot_graph", access = hs.HopsParamAccess.LIST),
+        hs.HopsNumber("L0", "L0", "L0", access = hs.HopsParamAccess.LIST),
+        hs.HopsNumber("L1", "L1", "L1", access = hs.HopsParamAccess.LIST),
     ]
 )
-def plot_graph(xList, yList):
+def _2lists_Transpose(aList, bList):
+    """
+    Array From List Part 3
+    """
+    import numpy as np
+    arr = np.array([aList, bList])
+    arr = arr.transpose()
+    print(arr)
+    print(arr.tolist())
+    print(arr.tolist()[0])
+    print(arr.tolist()[1])
+    #print(arr.list_to_tree()) not working in grasshopper canvas
+    # use entwine node in gh to convert lists to tree
+    return arr.tolist()[0], arr.tolist()[1]
+
+# create an array from 3 lists
+@hops.component(
+    "/_3list_array",
+    name=("Array From List Part 3"),
+    description=("Array From List Part 3"),
+    category="numpy",
+    subcategory="array",
+    inputs=[
+        hs.HopsNumber("aList", "aList", "aList", access = hs.HopsParamAccess.LIST),
+        hs.HopsNumber("bList", "bList", "bList", access = hs.HopsParamAccess.LIST),
+        hs.HopsNumber("cList", "cList", "cList", access = hs.HopsParamAccess.LIST),
+
+    ],
+    outputs=[
+        hs.HopsNumber("L0", "L0", "L0", access = hs.HopsParamAccess.LIST),
+        hs.HopsNumber("L1", "L1", "L1", access = hs.HopsParamAccess.LIST),
+        hs.HopsNumber("L2", "L2", "L2", access = hs.HopsParamAccess.LIST),
+    ]
+)
+def _3list_array(aList, bList, cList):
+    """
+    Array From List Part 3
+    """
+    import numpy as np
+    arr = np.array([aList, bList, aList])
+    #arr = arr.transpose()
+    print(arr)
+    print(arr.tolist())
+    print(arr.tolist()[0])
+    print(arr.tolist()[1])
+    print(arr.tolist()[2])
+    #print(arr.list_to_tree()) not working in grasshopper canvas
+    # use entwine node in gh to convert lists to tree
+    return arr.tolist()[0], arr.tolist()[1], arr.tolist()[2]
+
+# create an array from 3 lists
+@hops.component(
+    "/_3list_transpose",
+    name=("Array From List Part 3"),
+    description=("Array From List Part 3"),
+    category="numpy",
+    subcategory="array",
+    inputs=[
+        hs.HopsNumber("aList", "aList", "aList", access = hs.HopsParamAccess.LIST),
+        hs.HopsNumber("bList", "bList", "bList", access = hs.HopsParamAccess.LIST),
+        hs.HopsNumber("cList", "cList", "cList", access = hs.HopsParamAccess.LIST),
+
+    ],
+    outputs=[
+        hs.HopsNumber("L0", "L0", "L0", access = hs.HopsParamAccess.LIST),
+        hs.HopsNumber("L1", "L1", "L1", access = hs.HopsParamAccess.LIST),
+        hs.HopsNumber("L2", "L2", "L2", access = hs.HopsParamAccess.LIST),
+    ]
+)
+def _3list_transpose(aList, bList, cList):
+    """
+    Array From List Part 3
+    """
+    import numpy as np
+    arr = np.array([aList, bList, cList])
+    arr = arr.transpose()
+    print(arr)
+    print(arr.tolist())
+    print(arr.tolist()[0])
+    print(arr.tolist()[1])
+    print(arr.tolist()[2])
+    #print(arr.list_to_tree()) not working in grasshopper canvas
+    # use entwine node in gh to convert lists to tree
+    return arr.tolist()[0], arr.tolist()[1], arr.tolist()[2]
+
+# reshape array
+# create an array from 3 lists
+@hops.component(
+    "/_reshape3",
+    name=("Array From List Part 3"),
+    description=("Array From List Part 3"),
+    category="numpy",
+    subcategory="array",
+    inputs=[
+        hs.HopsNumber("aList", "aList", "aList", access = hs.HopsParamAccess.LIST),
+        hs.HopsNumber("bList", "bList", "bList", access = hs.HopsParamAccess.LIST),
+        hs.HopsNumber("cList", "cList", "cList", access = hs.HopsParamAccess.LIST),
+    ],
+    outputs=[
+        hs.HopsNumber("L0", "L0", "L0", access = hs.HopsParamAccess.LIST),
+        hs.HopsNumber("L1", "L1", "L1", access = hs.HopsParamAccess.LIST),
+        hs.HopsNumber("L2", "L2", "L2", access = hs.HopsParamAccess.LIST),
+        hs.HopsNumber("L3", "L3", "L3", access = hs.HopsParamAccess.LIST),
+    ]
+)
+def _reshape3(aList, bList, cList):
+    """
+    Array From List Part 3
+    """
+    import numpy as np
+    arr = np.array([aList, bList, cList])
+    arr = arr.reshape(2,2,3)
+    print(arr)
+    print(arr.tolist())
+    print(arr.tolist()[0][0])
+    print(arr.tolist()[0][1])
+    print(arr.tolist()[1][0])
+    print(arr.tolist()[1][1])
+    #print(arr.list_to_tree()) not working in grasshopper canvas
+    # use entwine node in gh to convert lists to tree
+    return arr.tolist()[0][0], arr.tolist()[0][1], arr.tolist()[1][0], arr.tolist()[1][1]
+
+# flatten array
+# create an array from 3 lists
+@hops.component(
+    "/_flatten2",
+    name=("Array From List Part 3"),
+    description=("Array From List Part 3"),
+    category="numpy",
+    subcategory="array",
+    inputs=[
+        hs.HopsNumber("aList", "aList", "aList", access = hs.HopsParamAccess.LIST),
+        hs.HopsNumber("bList", "bList", "bList", access = hs.HopsParamAccess.LIST),
+        hs.HopsNumber("cList", "cList", "cList", access = hs.HopsParamAccess.LIST),
+    ],
+    outputs=[
+        hs.HopsNumber("L0", "L0", "L0", access = hs.HopsParamAccess.LIST),
+    ]
+)
+def _flatten2(aList, bList, cList):
+    """
+    Array From List Part 3
+    """
+    import numpy as np
+    arr = np.array([aList, bList, aList])
+    arr = arr.flatten()
+    print(arr)
+    print(arr.tolist())
+    listOut = []
+    for i in arr.tolist():
+        print(i)
+        listOut.append(i)
+    return listOut
+
+
+"""
+██╗███╗   ██╗██████╗ ███████╗██╗  ██╗██╗███╗   ██╗ ██████╗ 
+██║████╗  ██║██╔══██╗██╔════╝╚██╗██╔╝██║████╗  ██║██╔════╝ 
+██║██╔██╗ ██║██║  ██║█████╗   ╚███╔╝ ██║██╔██╗ ██║██║  ███╗
+██║██║╚██╗██║██║  ██║██╔══╝   ██╔██╗ ██║██║╚██╗██║██║   ██║
+██║██║ ╚████║██████╔╝███████╗██╔╝ ██╗██║██║ ╚████║╚██████╔╝
+╚═╝╚═╝  ╚═══╝╚═════╝ ╚══════╝╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝ ╚═════╝ 
+                                                           
+███╗   ██╗██╗   ██╗███╗   ███╗██████╗ ██╗   ██╗            
+████╗  ██║██║   ██║████╗ ████║██╔══██╗╚██╗ ██╔╝            
+██╔██╗ ██║██║   ██║██╔████╔██║██████╔╝ ╚████╔╝             
+██║╚██╗██║██║   ██║██║╚██╔╝██║██╔═══╝   ╚██╔╝              
+██║ ╚████║╚██████╔╝██║ ╚═╝ ██║██║        ██║               
+╚═╝  ╚═══╝ ╚═════╝ ╚═╝     ╚═╝╚═╝        ╚═╝   
+
+"""
+# indexing array in numpy
+@hops.component(
+    "/_indexing2",
+    name=("Array From List Part 3"),
+    description=("Array From List Part 3"),
+    category="numpy",
+    subcategory="array",
+    inputs=[
+        hs.HopsNumber("aList", "aList", "aList", access = hs.HopsParamAccess.LIST),
+        hs.HopsNumber("bList", "bList", "bList", access = hs.HopsParamAccess.LIST),
+        hs.HopsNumber("cList", "cList", "cList", access = hs.HopsParamAccess.LIST),
+        hs.HopsNumber("dList", "dList", "dList", access = hs.HopsParamAccess.LIST),
+    ],
+    outputs=[
+        hs.HopsNumber("L0", "L0", "L0", access = hs.HopsParamAccess.LIST),
+        hs.HopsNumber("L1", "L1", "L1", access = hs.HopsParamAccess.LIST),
+        hs.HopsNumber("L2", "L2", "L2", access = hs.HopsParamAccess.LIST),
+        hs.HopsNumber("L3", "L3", "L3", access = hs.HopsParamAccess.LIST),
+    ]
+)
+def _indexing2(aList, bList, cList, dList):
+    arr = np.array([aList, bList, cList, dList])
+    print(arr)
+    temp = arr[:2, ::2]
+    # array with first 2 rows and alternative columns(0and2)
+    print(temp)
+    print(temp.tolist())
+    print(temp.tolist()[0][0])
+    print(temp.tolist()[0][1])
+    print(temp.tolist()[1][0])
+    print(temp.tolist()[1][1])
+    #print(temp.list_to_tree()) not working in grasshopper canvas
+    # use entwine node in gh to convert lists to tree
+    return temp.tolist()[0][0], temp.tolist()[0][1], temp.tolist()[1][0], temp.tolist()[1][1]
+
+# there is so much to do with numpy
+# indexing
+# cond is a booleaen array
+# basic operations
+# square
+# modify array
+# transpose
+# min and max
+# element wise operations
+# matrix multiplication
+# matrix division
+# create an array of sin values
+# create an array of cos values
+# exponential and logarithmic value arrays
+# square root and power arrays
+
+# sorted array
+# row-wise and column-wise sorted arrays
+# merge sorted arrays
+# put in values in sorted order
+# find the index of a value in an array
+
+"""
+ █████╗ ██████╗ ██╗   ██╗ █████╗ ███╗   ██╗ ██████╗███████╗██████╗     
+██╔══██╗██╔══██╗██║   ██║██╔══██╗████╗  ██║██╔════╝██╔════╝██╔══██╗    
+███████║██║  ██║██║   ██║███████║██╔██╗ ██║██║     █████╗  ██║  ██║    
+██╔══██║██║  ██║╚██╗ ██╔╝██╔══██║██║╚██╗██║██║     ██╔══╝  ██║  ██║    
+██║  ██║██████╔╝ ╚████╔╝ ██║  ██║██║ ╚████║╚██████╗███████╗██████╔╝    
+╚═╝  ╚═╝╚═════╝   ╚═══╝  ╚═╝  ╚═╝╚═╝  ╚═══╝ ╚═════╝╚══════╝╚═════╝     
+                                                                       
+███╗   ██╗██╗   ██╗███╗   ███╗██████╗ ██╗   ██╗                        
+████╗  ██║██║   ██║████╗ ████║██╔══██╗╚██╗ ██╔╝                        
+██╔██╗ ██║██║   ██║██╔████╔██║██████╔╝ ╚████╔╝                         
+██║╚██╗██║██║   ██║██║╚██╔╝██║██╔═══╝   ╚██╔╝                          
+██║ ╚████║╚██████╔╝██║ ╚═╝ ██║██║        ██║                           
+╚═╝  ╚═══╝ ╚═════╝ ╚═╝     ╚═╝╚═╝        ╚═╝  
+
+"""
+# numpy methods
+# all, any, argmax, argmin, argsort, astype, average, byteswap, clip, compress, conj, copy, cumprod, cumsum, diagonal, dot, dump, dumps, empty, empty_like, expand_dims, fill, flatten, getfield, item, itemset, max, mean, min, nbytes, newbyteorder, nonzero, prod, put, ravel, repeat, reshape, resize, searchsorted, setfield, setflags, sort, squeeze, std, sum, swapaxes, take, tobytes, tofile
+# transpose, trace, transpose, var, view, where, zeros, zeros_like,
+# arange, array, asarray, ascontiguousarray, asfarray, asmatrix, asstrided,
+# atleast_1d, atleast_2d, atleast_3d, broadcast, broadcast_arrays, broadcast_to,
+# can_cast, compare_chararrays, concatenate, copyto, cross, cumproduct,
+# dtype, empty_like, equal, eye, fill_diagonal, flags, flatiter, flatten,
+# frombuffer, fromfile, fromiter, fromstring, getbuffer, getfield,
+# inner, int_asbuffer, interp, is_busday, is_busdaycalendar, isclose,
+# iscomplex, iscomplexobj, iscontiguous, isdatetime, isfortran,
+# ishollow, ismasked, ismatrix, ismaskedarray, isne, issequence, issubclass_,
+# issubdtype, isscalar, issubclass, item, itemset, itemsize, iterable,
+# lexsort, mat, matrix, max, may_share_memory, mean, min, ndarray,
+# nditer, ndim, newaxis, nonzero
+
+@hops.component(
+    "/_all3",
+    name=("all"),
+    description=("all"),
+    category="numpy",
+    subcategory="array",
+    inputs=[
+        hs.HopsNumber("a", "a", "a", access = hs.HopsParamAccess.LIST),
+        hs.HopsNumber("b", "b", "b", access = hs.HopsParamAccess.LIST),
+        hs.HopsNumber("c", "c", "c", access = hs.HopsParamAccess.LIST),
+        hs.HopsNumber("d", "d", "d", access = hs.HopsParamAccess.LIST),
+    ],
+    outputs=[
+        hs.HopsBoolean("all", "all", "all", access = hs.HopsParamAccess.LIST),
+    ]
+)
+def _all3(a, b, c, d):
+    arr = np.all([a, b, c, d])
+    print(arr)
+    return arr.tolist()
+
+@hops.component(
+    "/_any",
+    name=("any"),
+    description=("any"),
+    category="numpy",
+    subcategory="array",
+    inputs=[
+        hs.HopsNumber("a", "a", "a", access = hs.HopsParamAccess.LIST),
+        hs.HopsNumber("b", "b", "b", access = hs.HopsParamAccess.LIST),
+        hs.HopsNumber("c", "c", "c", access = hs.HopsParamAccess.LIST),
+        hs.HopsNumber("d", "d", "d", access = hs.HopsParamAccess.LIST),
+    ],
+    outputs=[
+        hs.HopsBoolean("any", "any", "any", access = hs.HopsParamAccess.LIST),
+    ]
+)
+def _any(a, b, c, d):
+    arr = np.any([a, b, c, d])
+    print(arr)
+    return arr.tolist()
+
+
+
+
+
+
+# """
+# ███╗   ███╗ █████╗ ████████╗██████╗ ██╗      ██████╗ ████████╗██╗     ██╗██████╗ 
+# ████╗ ████║██╔══██╗╚══██╔══╝██╔══██╗██║     ██╔═══██╗╚══██╔══╝██║     ██║██╔══██╗
+# ██╔████╔██║███████║   ██║   ██████╔╝██║     ██║   ██║   ██║   ██║     ██║██████╔╝
+# ██║╚██╔╝██║██╔══██║   ██║   ██╔═══╝ ██║     ██║   ██║   ██║   ██║     ██║██╔══██╗
+# ██║ ╚═╝ ██║██║  ██║   ██║   ██║     ███████╗╚██████╔╝   ██║   ███████╗██║██████╔╝
+# ╚═╝     ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝     ╚══════╝ ╚═════╝    ╚═╝   ╚══════╝╚═╝╚═════╝ 
+# """
+# # matplotlib    and numpy for plotting
+
+# # linear regrassion using least squares nethod
+# # w1x + w2 = y
+# # w1 = (x1 * y - x2 * y) / (x1^2 + x2^2)
+# # x co-ordinates
+# @hops.component(
+#     "/linear_regression",
+#     name=("Linear Regression"),
+#     description=("Linear Regression"),
+#     category="numpy",
+#     subcategory="array",
+#     inputs=[
+#         hs.HopsNumber("xList", "xList", "xList", access = hs.HopsParamAccess.LIST),
+#         hs.HopsNumber("yList", "yList", "yList", access = hs.HopsParamAccess.LIST),
+#     ],
+#     outputs=[
+#         hs.HopsNumber("linear_regression", "linear_regression", "linear_regression", access = hs.HopsParamAccess.LIST),
+#     ]
+# )
+# def linear_regression(xList, yList):
+#     """
+#     Linear Regression
+#     """
+#     import matplotlib.pyplot as plt
+#     import numpy as np
+#     x = np.array(xList)
+#     y = np.array(yList)
+#     x1 = x[0]
+#     x2 = x[1]
+#     y1 = y[0]
+#     y2 = y[1]
+#     w1 = (x1 * y1 - x2 * y2) / (x1**2 + x2**2)
+#     w2 = (x1 * y2 - x2 * y1) / (x1**2 + x2**2)
+#     linear_regression = [w1, w2]
+#     return linear_regression    
+
+# @hops.component(
+#     "/linear_regression_plot",
+#     name=("Linear Regression Plot"),
+#     description=("Linear Regression Plot"),
+#     category="numpy",
+#     subcategory="array",
+#     inputs=[
+#         hs.HopsNumber("xList", "xList", "xList", access = hs.HopsParamAccess.LIST),
+#         hs.HopsNumber("yList", "yList", "yList", access = hs.HopsParamAccess.LIST),
+#     ],
+#     outputs=[
+#         hs.HopsBoolean("linear_regression_plot", "linear_regression_plot", "linear_regression_plot", access = hs.HopsParamAccess.LIST),
+#     ]
+# )
+# def linear_regression_plot(xList, yList):
+#     """
+#     Linear Regression Plot
+#     """
+#     import matplotlib.pyplot as plt
+#     import numpy as np
+#     x = np.array(xList)
+#     A = np.array([x, np.ones(len(x))])
+#     # linearly generated sequence
+#     y = np.array(yList)
+#     # obtaining the parameters of the regression line
+#     w = np.linalg.lstsq(A.T, y)[0]
+#     # plotting the regression line
+#     line = w[0] * x + w[1] # regression line
+#     plt.plot(x, line, 'r-', label='Linear regression')
+#     plt.plot(x, y, 'o', label='Original data')
+#     plt.show()
+#     return True
+
+# # matplotlib functions for plotting
+# @hops.component(
+#     "/plot_scatter1",
+#     name=("Plot Scatter"),
+#     description=("Plot Scatter"),
+#     category="numpy",
+#     subcategory="array",
+#     inputs=[
+#         hs.HopsNumber("xList", "xList", "xList", access = hs.HopsParamAccess.LIST),
+#         hs.HopsNumber("yList", "yList", "yList", access = hs.HopsParamAccess.LIST),
+#     ],
+#     outputs=[
+#         hs.HopsBoolean("plot_scatter", "plot_scatter", "plot_scatter", access = hs.HopsParamAccess.LIST),
+#     ]
+# )
+# def plot_scatter(xList, yList):
+
+#     import matplotlib.pyplot as plt
+#     import numpy as np
+#     x = np.array(xList)
+#     y = np.array(yList)
+#     plt.scatter(x, y)
+#     plt.show()
+#     return True
+
+# # matplotlib functions for plotting
+# @hops.component(
+#     "/plot_graph",
+#     name=("Plot Graph"),
+#     description=("Plot Graph"),
+#     category="numpy",
+#     subcategory="array",
+#     inputs=[
+#         hs.HopsNumber("xList", "xList", "xList", access = hs.HopsParamAccess.LIST),
+#         hs.HopsNumber("yList", "yList", "yList", access = hs.HopsParamAccess.LIST),
+#     ],
+#     outputs=[
+#         hs.HopsBoolean("plot_graph", "plot_graph", "plot_graph", access = hs.HopsParamAccess.LIST),
+#     ]
+# )
+# def plot_graph(xList, yList):
     
-        import matplotlib.pyplot as plt
-        import numpy as np
-        x = np.array(xList)
-        y = np.array(yList)
-        plt.plot(x, y)
-        plt.show()
-        return True
+#         import matplotlib.pyplot as plt
+#         import numpy as np
+#         x = np.array(xList)
+#         y = np.array(yList)
+#         plt.plot(x, y)
+#         plt.show()
+#         return True
 
-# bar graph for plotting matplotlib
-@hops.component(
-    "/plot_bar",
-    name=("Plot Bar"),
-    description=("Plot Bar"),
-    category="numpy",
-    subcategory="array",
-    inputs=[
-        hs.HopsNumber("xList", "xList", "xList", access = hs.HopsParamAccess.LIST),
-        hs.HopsNumber("yList", "yList", "yList", access = hs.HopsParamAccess.LIST),
-    ],
-    outputs=[
-        hs.HopsBoolean("plot_bar", "plot_bar", "plot_bar", access = hs.HopsParamAccess.LIST),
-    ]
-)
-def plot_bar(xList, yList):
+# # bar graph for plotting matplotlib
+# @hops.component(
+#     "/plot_bar",
+#     name=("Plot Bar"),
+#     description=("Plot Bar"),
+#     category="numpy",
+#     subcategory="array",
+#     inputs=[
+#         hs.HopsNumber("xList", "xList", "xList", access = hs.HopsParamAccess.LIST),
+#         hs.HopsNumber("yList", "yList", "yList", access = hs.HopsParamAccess.LIST),
+#     ],
+#     outputs=[
+#         hs.HopsBoolean("plot_bar", "plot_bar", "plot_bar", access = hs.HopsParamAccess.LIST),
+#     ]
+# )
+# def plot_bar(xList, yList):
         
-            import matplotlib.pyplot as plt
-            import numpy as np
-            x = np.array(xList)
-            y = np.array(yList)
-            plt.bar(x, y)
-            plt.show()
-            return True
+#             import matplotlib.pyplot as plt
+#             import numpy as np
+#             x = np.array(xList)
+#             y = np.array(yList)
+#             plt.bar(x, y)
+#             plt.show()
+#             return True
+
+# @hops.component(
+#     "/plot_pie",
+#     name=("Plot Pie"),
+#     description=("Plot Pie"),
+#     category="numpy",
+#     subcategory="array",
+#     inputs=[
+#         hs.HopsNumber("xList", "xList", "xList", access = hs.HopsParamAccess.LIST),
+#         hs.HopsNumber("yList", "yList", "yList", access = hs.HopsParamAccess.LIST),
+#     ],
+#     outputs=[
+#         hs.HopsBoolean("plot_pie", "plot_pie", "plot_pie", access = hs.HopsParamAccess.LIST),
+#     ]
+# )
+# def plot_pie(xList, yList):
+#             import matplotlib.pyplot as plt
+#             import numpy as np
+#             x = np.array(xList)
+#             y = np.array(yList)
+#             plt.pie(y, labels=x)
+#             plt.show()
+#             return True
+
+# @hops.component(
+#     "/plot_donut",
+#     name=("Plot Donut"),
+#     description=("Plot Donut"),
+#     category="numpy",
+#     subcategory="array",
+#     inputs=[
+#         hs.HopsNumber("xList", "xList", "xList", access = hs.HopsParamAccess.LIST),
+#         hs.HopsNumber("yList", "yList", "yList", access = hs.HopsParamAccess.LIST),
+#     ],
+#     outputs=[
+#         hs.HopsBoolean("plot_donut", "plot_donut", "plot_donut", access = hs.HopsParamAccess.LIST),
+#     ]
+# )
+# def plot_donut(xList, yList):
+#             import matplotlib.pyplot as plt
+#             import numpy as np
+#             x = np.array(xList)
+#             y = np.array(yList)
+#             plt.pie(y, labels=x, autopct='%1.1f%%', startangle=90)
+#             plt.show()
+#             return True
+
+# @hops.component(
+#     "/plot_scatter_3d",
+#     name=("Plot Scatter 3D"),
+#     description=("Plot Scatter 3D"),
+#     category="numpy",
+#     subcategory="array",
+#     inputs=[
+#         hs.HopsNumber("xList", "xList", "xList", access = hs.HopsParamAccess.LIST),
+#         hs.HopsNumber("yList", "yList", "yList", access = hs.HopsParamAccess.LIST),
+#         hs.HopsNumber("zList", "zList", "zList", access = hs.HopsParamAccess.LIST),
+#     ],
+#     outputs=[
+#         hs.HopsBoolean("plot_scatter_3d", "plot_scatter_3d", "plot_scatter_3d", access = hs.HopsParamAccess.LIST),
+#     ]
+# )
+# def plot_scatter_3d(xList, yList, zList):
+#             import matplotlib.pyplot as plt
+#             import numpy as np
+#             x = np.array(xList)
+#             y = np.array(yList)
+#             z = np.array(zList)
+#             plt.scatter(x, y, z)
+#             plt.show()
+#             return True
+
+
+
+
+"""
+██████╗  █████╗ ███╗   ██╗██████╗  █████╗ ███████╗
+██╔══██╗██╔══██╗████╗  ██║██╔══██╗██╔══██╗██╔════╝
+██████╔╝███████║██╔██╗ ██║██║  ██║███████║███████╗
+██╔═══╝ ██╔══██║██║╚██╗██║██║  ██║██╔══██║╚════██║
+██║     ██║  ██║██║ ╚████║██████╔╝██║  ██║███████║
+╚═╝     ╚═╝  ╚═╝╚═╝  ╚═══╝╚═════╝ ╚═╝  ╚═╝╚══════╝
+
+"""
+# Pandas in Python
+# panda functions
+# series and dataframe
 
 @hops.component(
-    "/plot_pie",
-    name=("Plot Pie"),
-    description=("Plot Pie"),
-    category="numpy",
-    subcategory="array",
+    "/panda_series",
+    name=("Panda Series"),
+    description=("Panda Series"),
+    category="panda",
+    subcategory="series",
+    inputs=[
+        hs.HopsNumber("xList", "xList", "xList", access = hs.HopsParamAccess.LIST),
+    ],
+    outputs=[
+        hs.HopsNumber("panda_series", "panda_series", "panda_series", access = hs.HopsParamAccess.LIST),
+    ]
+)
+def panda_series(xList):
+    import pandas as pd
+    x = pd.Series(xList)
+    print(x)
+    return x
+
+@hops.component(
+    "/panda_dataframe",
+    name=("Panda Dataframe"),
+    description=("Panda Dataframe"),
+    category="panda",
+    subcategory="dataframe",
     inputs=[
         hs.HopsNumber("xList", "xList", "xList", access = hs.HopsParamAccess.LIST),
         hs.HopsNumber("yList", "yList", "yList", access = hs.HopsParamAccess.LIST),
     ],
     outputs=[
-        hs.HopsBoolean("plot_pie", "plot_pie", "plot_pie", access = hs.HopsParamAccess.LIST),
+        hs.HopsNumber("panda_dataframe", "panda_dataframe", "panda_dataframe", access = hs.HopsParamAccess.LIST),
     ]
 )
-def plot_pie(xList, yList):
-            import matplotlib.pyplot as plt
-            import numpy as np
-            x = np.array(xList)
-            y = np.array(yList)
-            plt.pie(y, labels=x)
-            plt.show()
-            return True
+def panda_dataframe(xList, yList):
+    import pandas as pd
+    x = pd.DataFrame(xList, yList)
+    print(x)
+    return x
 
+# csv files for pandas
+# panda methods
+# read_csv
+# read_excel
+# read_json
+# read_html
+# read_sql
+
+
+# index() - returns a new dataframe with the given index
 @hops.component(
-    "/plot_donut",
-    name=("Plot Donut"),
-    description=("Plot Donut"),
-    category="numpy",
-    subcategory="array",
+    "/panda_series_index",
+    name=("Panda Series Index"),
+    description=("Panda Series Index"),
+    category="panda",
+    subcategory="series",
     inputs=[
         hs.HopsNumber("xList", "xList", "xList", access = hs.HopsParamAccess.LIST),
-        hs.HopsNumber("yList", "yList", "yList", access = hs.HopsParamAccess.LIST),
     ],
     outputs=[
-        hs.HopsBoolean("plot_donut", "plot_donut", "plot_donut", access = hs.HopsParamAccess.LIST),
+        hs.HopsNumber("panda_series", "panda_series", "panda_series", access = hs.HopsParamAccess.LIST),
     ]
 )
-def plot_donut(xList, yList):
-            import matplotlib.pyplot as plt
-            import numpy as np
-            x = np.array(xList)
-            y = np.array(yList)
-            plt.pie(y, labels=x, autopct='%1.1f%%', startangle=90)
-            plt.show()
-            return True
+def panda_series(xList):
+    import pandas as pd
+    x = pd.Series(xList)
+    print(x)
+    seriesOut = (x[:5])
+    print(seriesOut)
+    return seriesOut
+
+# insert() - inserts a new row in the dataframe at the given index
+# add() - adds a new row to the dataframe
+# sub()
+# mul()
+# div()
+# unique() - returns a new dataframe with the unique rows of the dataframe
+# value_counts() - returns a new dataframe with the counts of each unique row of the dataframe
+# columns() - returns a list of the columns in the dataframe
+# isnull() - returns a new dataframe with the null values of the dataframe
+# notnull() - returns a new dataframe with the non-null values of the dataframe
+# between() - returns a new dataframe with the rows that are between the given values
+# isin() - returns a new dataframe with the rows that are in the given list
+# dtypes() - returns a list of the data types of the columns in the dataframe
+# drop() - drops the given columns from the dataframe
+# pop() - removes the given column from the dataframe and returns it
+# sample() - returns a new dataframe with the given number of rows randomly sampled from the dataframe
+# ndim() - returns the number of dimensions of the dataframe
+# query() - returns a new dataframe with the rows that match the given query
+# copy() - returns a copy of the dataframe
+# drop_duplicates() - returns a new dataframe with the duplicate rows removed
+
+# create a dataframe from a csv file using pandas
+@hops.component(
+    "/panda_dataframe_csv4",
+    name=("Panda Dataframe CSV"),
+    description=("Panda Dataframe CSV"),
+    category="panda",
+    subcategory="dataframe",
+    inputs=[
+        hs.HopsString("csvFile", "csvFile", "csvFile", access = hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsNumber("panda_dataframe", "panda_dataframe", "panda_dataframe", access = hs.HopsParamAccess.LIST),
+    ]
+)   
+def panda_dataframe4(csvFile):
+    import pandas as pd
+    x = pd.read_csv(csvFile)
+    print(x)
+    return x
+
+# create a series from a csv file using pandas
+@hops.component(
+    "/series_csv4",
+    name=("Panda Series CSV"),
+    description=("Panda Series CSV"),
+    category="panda",
+    subcategory="series",
+    inputs=[
+        hs.HopsString("csvFile", "csvFile", "csvFile", access = hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsString("panda_series", "panda_series", "panda_series", access = hs.HopsParamAccess.LIST),
+    ]
+)
+def series4(csvFile):
+    import pandas as pd
+    x = pd.read_csv(csvFile)
+    print(x)
+    listOut = []
+    for i in x:
+        print(x[i])
+        listOut.append(x[i])
+    return listOut
+
+
+
+
+    # buffer = io.StringIO(csvFile)
+    # loaded_df = pd.read_csv(buffer)
+    # #(filepath_or_buffer=buffer, skipinitionalspace=True, lineterminator='@')
+    # print(type(loaded_df))
+    # print(loaded_df)
+    # return loaded_df 
+
+# create a dataframe from a csv file using pandas
+# @hops.component(
+#     "/panda_dataframe_csv9",
+#     name=("Panda Dataframe CSV"),
+#     description=("Panda Dataframe CSV"),
+#     category="panda",
+#     subcategory="dataframe",
+#     inputs=[
+#         hs.HopsString("csvFile", "csvFile", "csvFile", access = hs.HopsParamAccess.ITEM),
+#     ],
+#     outputs=[
+#         hs.HopsString("panda_dataframe", "panda_dataframe", "panda_dataframe", access = hs.HopsParamAccess.ITEM),
+#     ]
+# )   
+# def csv_to_df(df1):
+#     """load df from a csv, with special line-"""
+#     buffer = io.StringIO(df1)
+#     loaded_df = pd.read_csv(filepath_or_buffer=buffer, skipinitionalspace=True, lineterminator='@')
+#     return loaded_df 
+    # The whenever you have done with you needed with your DF,
+    # you need to convert it back to a csv, 
+    # with the same custom separator
+    #return the_actual_dataframe.to_csv(index=False, line_terminator='@')
+
+
+
+
+# create a dataframe from a excel file using pandas
+# create a dataframe from a json file using pandas
+# create a dataframe from a html file using pandas
+# create a dataframe from a sql file using pandas
+
+
+
+"""\
+█████╗ ███╗   ██╗████████╗ ██████╗ ██╗███╗   ██╗███████╗
+██╔══██╗████╗  ██║╚══██╔══╝██╔═══██╗██║████╗  ██║██╔════╝
+███████║██╔██╗ ██║   ██║   ██║   ██║██║██╔██╗ ██║█████╗  
+██╔══██║██║╚██╗██║   ██║   ██║   ██║██║██║╚██╗██║██╔══╝  
+██║  ██║██║ ╚████║   ██║   ╚██████╔╝██║██║ ╚████║███████╗
+╚═╝  ╚═╝╚═╝  ╚═══╝   ╚═╝    ╚═════╝ ╚═╝╚═╝  ╚═══╝╚══════╝
+                                                         
+███╗   ███╗ █████╗ ███████╗███████╗                      
+████╗ ████║██╔══██╗██╔════╝██╔════╝                      
+██╔████╔██║███████║█████╗  ███████╗                      
+██║╚██╔╝██║██╔══██║██╔══╝  ╚════██║                      
+██║ ╚═╝ ██║██║  ██║███████╗███████║                      
+╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝╚══════╝   
+"""
+# import pandas as pd
+
+# #import all_graphs
+# from utils import *
+
+# @hops.component(
+#     "/dt_to_df",
+#     name="datatree to dataframe",
+#     nickname="dtdf",
+#     description="Converts any str,int,float datatree to a csv representation of a dataframe",
+#     inputs=[
+#         hs.HopsString("Data as tree", "Dt", "Data tree to convert", hs.HopsParamAccess.TREE),
+#         hs.HopsString("Tree structure labels", "L", "List of the path labels (what the tree structure represent)",
+#                       hs.HopsParamAccess.LIST),
+#         hs.HopsString("Datatype", "D", "What does the data represent? Number of elements should match the number of"
+#                                        "elements in each branches of the datatree", hs.HopsParamAccess.LIST),
+#     ],
+#     outputs=[
+#         hs.HopsString("DfCSV", "Df", "Dataframe as a csv."
+#                                      "\nNote that you might not be able to use panel on this output."),
+#     ]
+# )
+# def better(data_tree: dict, path_labels: list, data_type: list):
+
+#     if len(list(data_tree.keys())[0]) != len(data_type):
+#         # THROW A WARNING !!
+#         # Hops limitation. If needed, just print stuff, and keep checking terminal window
+#         pass
+
+#     clean_tree = clean_dict_datatype(data_tree)
+#     renamed_key = temp_rename_dict(clean_tree)
+#     temp_list = list_key_path(renamed_key)
+#     partitioned = sub_lister(temp_list, len(path_labels))
+
+#     transposed = list(map(lambda *a: list(a), *partitioned))
+
+#     path_dict = label_dict(transposed, path_labels)
+#     dict_list = dicts_for_datatypes(data_tree, data_type)
+#     final_dict = dict_merger(path_dict, dict_list)
+#     the_dataframe = pd.DataFrame.from_dict(final_dict)
+
+#     # format incompatibility fix
+#     the_actual_dataframe = fix_one_item_list(the_dataframe, data_type)
+
+#     return the_actual_dataframe.to_csv(index=False, line_terminator='@')
+
+# # ----------------------------------------------------------------------------------
+"""
+██████╗  █████╗ ████████╗ █████╗                                      
+██╔══██╗██╔══██╗╚══██╔══╝██╔══██╗                                     
+██║  ██║███████║   ██║   ███████║                                     
+██║  ██║██╔══██║   ██║   ██╔══██║                                     
+██████╔╝██║  ██║   ██║   ██║  ██║                                     
+╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝                                     
+                                                                      
+███████╗ ██████╗██╗███████╗███╗   ██╗ ██████╗███████╗                 
+██╔════╝██╔════╝██║██╔════╝████╗  ██║██╔════╝██╔════╝                 
+███████╗██║     ██║█████╗  ██╔██╗ ██║██║     █████╗                   
+╚════██║██║     ██║██╔══╝  ██║╚██╗██║██║     ██╔══╝                   
+███████║╚██████╗██║███████╗██║ ╚████║╚██████╗███████╗                 
+╚══════╝ ╚═════╝╚═╝╚══════╝╚═╝  ╚═══╝ ╚═════╝╚══════╝                 
+                                                                      
+██╗  ██╗    ██████╗ ██╗   ██╗███╗   ███╗███╗   ███╗██╗███████╗███████╗
+██║  ██║    ██╔══██╗██║   ██║████╗ ████║████╗ ████║██║██╔════╝██╔════╝
+███████║    ██║  ██║██║   ██║██╔████╔██║██╔████╔██║██║█████╗  ███████╗
+╚════██║    ██║  ██║██║   ██║██║╚██╔╝██║██║╚██╔╝██║██║██╔══╝  ╚════██║
+     ██║    ██████╔╝╚██████╔╝██║ ╚═╝ ██║██║ ╚═╝ ██║██║███████╗███████║
+     ╚═╝    ╚═════╝  ╚═════╝ ╚═╝     ╚═╝╚═╝     ╚═╝╚═╝╚══════╝╚══════╝
+"""
+# working with real data
+# manipulating data streams
+# working with flat and unstructured files
+# interacting with relational databases
+# Using NoSQL as a data source
+# interacting with web-based data
+# working with data in the cloud
+
+# real world data
+# uploading, streaming, adn Sampling Data
+
+# features and variables are columns
+# cases or rows are observations
+# data is stored in a table
+# data is stored in a database
+# data is stored in a file
+
+# ----------------------------------------------------------------------------------
 
 @hops.component(
-    "/plot_scatter_3d",
-    name=("Plot Scatter 3D"),
-    description=("Plot Scatter 3D"),
-    category="numpy",
-    subcategory="array",
+    "/open_txt",
+    description="Opens a text file",
     inputs=[
-        hs.HopsNumber("xList", "xList", "xList", access = hs.HopsParamAccess.LIST),
-        hs.HopsNumber("yList", "yList", "yList", access = hs.HopsParamAccess.LIST),
-        hs.HopsNumber("zList", "zList", "zList", access = hs.HopsParamAccess.LIST),
+        hs.HopsString("File path", "F", "File path", hs.HopsParamAccess.ITEM),
     ],
     outputs=[
-        hs.HopsBoolean("plot_scatter_3d", "plot_scatter_3d", "plot_scatter_3d", access = hs.HopsParamAccess.LIST),
+        hs.HopsString("File content", "C", "File content"),
     ]
 )
-def plot_scatter_3d(xList, yList, zList):
-            import matplotlib.pyplot as plt
-            import numpy as np
-            x = np.array(xList)
-            y = np.array(yList)
-            z = np.array(zList)
-            plt.scatter(x, y, z)
-            plt.show()
-            return True
+def open_txt(file_path: str):
+    with open(file_path, 'r') as f:
+        return f.read()
+
+@hops.component(
+    "/open_txt_int",
+    description="Opens a csv file",
+    inputs=[
+        hs.HopsString("File path", "F", "File path", hs.HopsParamAccess.ITEM),
+        hs.HopsInteger("count", "C", "Number of chars to read", hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsString("File content", "C", "File content"),
+    ]
+)
+def open_txt_int(file_path: str, count: int):
+    with open(file_path, 'r') as f:
+        return f.read(count)
+
+# streaming large amounts of data into memory
+@hops.component(
+    "/open_txt_stream4",
+    description="Opens a csv file",
+    inputs=[
+        hs.HopsString("File path", "F", "File path", hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsString("File content", "C", "File content"),
+    ]
+)   
+def open_txt_stream4(file_path: str):
+    with open(file_path, 'r') as f:
+        listOut = []
+        for observation in f:
+            print(observation)
+            listOut.append(observation)
+        return listOut
+
+# # generating variations on image data
+
+# import matplotlib.image as image
+# import matplotlib.pyplot as plt
+# #%matplotlib inline
+
+# @hops.component(
+#     "/open_image3",
+#     description="Opens a image file",
+#     inputs=[
+#         hs.HopsString("File path", "F", "File path", hs.HopsParamAccess.ITEM),
+#     ],
+#     outputs=[
+#     ]
+# )
+# def open_image3(file_path: str):
+#     shape = image.imread(file_path).shape
+#     size = image.imread(file_path).size
+#     image_show = plt.imshow(image.imread(file_path))
+#     plt.show()
+#     return image_show
+
+# @hops.component(
+#     "/open_image5",
+#     description="Opens a image file",
+#     inputs=[
+#         hs.HopsString("File path", "F", "File path", hs.HopsParamAccess.ITEM),
+#     ],
+#     outputs=[
+#         hs.HopsNumber("Shape", "Shape", "Shape", hs.HopsParamAccess.ITEM),
+#         hs.HopsNumber("Size", "Size", "Size")
+#     ],
+# )
+# def open_image5(file_path: str):
+#     shape = image.imread(file_path).shape
+#     size = image.imread(file_path).size
+#     image_show = plt.imshow(image.imread(file_path))
+#     plt.show()
+#     return shape, size
+
+#----------------------------------------------------------------------------------
+#sampling data in different ways
+@hops.component(
+    "/open_txt_sample5",
+    description="Opens a txt file",
+    inputs=[
+        hs.HopsString("File path", "F", "File path", hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsString("File content", "C", "File content"),
+    ]
+)
+def open_txt_sample5(file_path: str):
+    with open(file_path, 'r') as f:
+        listOut = []
+        n = 2
+        for i, observation in enumerate(f):
+            if (i % n == 0):
+                listOut.append(observation)
+    return listOut
+
+@hops.component(
+    "/open_txt_mod",
+    description="Opens a txt file",
+    inputs=[
+        hs.HopsString("File path", "F", "File path", hs.HopsParamAccess.ITEM),
+        hs.HopsInteger("mod", "M", "Modulo", hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsString("File content", "C", "File content"),
+    ]
+)
+def open_txt_mod(file_path: str, mod: int):
+    with open(file_path, 'r') as f:
+        listOut = []
+        n = mod
+        for i, observation in enumerate(f):
+            if (i % n == 0):
+                listOut.append(observation)
+    return listOut
+
+# random sampling
+@hops.component(
+    "/open_txt_random2",
+    description="Opens a txt file",
+    inputs=[
+        hs.HopsString("File path", "F", "File path", hs.HopsParamAccess.ITEM),
+        hs.HopsNumber("prob", "P", "Probability", hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsString("File content", "C", "File content"),
+    ]
+)
+def open_txt_random2(file_path: str, prob: float):
+    import random
+    with open(file_path, 'r') as f:
+        sample_size = prob
+        listOut = []
+        for i, observation in enumerate(f):
+            if (random.random() < sample_size):
+                print(observation)
+                listOut.append(observation)
+    return listOut
+
+
+# Accessing Data in Structured Flat-File Form 
+
+"""
+     ██╗██╗   ██╗██████╗ ██╗   ██╗████████╗███████╗██████╗                    
+     ██║██║   ██║██╔══██╗╚██╗ ██╔╝╚══██╔══╝██╔════╝██╔══██╗                   
+     ██║██║   ██║██████╔╝ ╚████╔╝    ██║   █████╗  ██████╔╝                   
+██   ██║██║   ██║██╔═══╝   ╚██╔╝     ██║   ██╔══╝  ██╔══██╗                   
+╚█████╔╝╚██████╔╝██║        ██║      ██║   ███████╗██║  ██║                   
+ ╚════╝  ╚═════╝ ╚═╝        ╚═╝      ╚═╝   ╚══════╝╚═╝  ╚═╝                   
+                                                                              
+███╗   ██╗ ██████╗ ████████╗███████╗██████╗  ██████╗  ██████╗ ██╗  ██╗███████╗
+████╗  ██║██╔═══██╗╚══██╔══╝██╔════╝██╔══██╗██╔═══██╗██╔═══██╗██║ ██╔╝██╔════╝
+██╔██╗ ██║██║   ██║   ██║   █████╗  ██████╔╝██║   ██║██║   ██║█████╔╝ ███████╗
+██║╚██╗██║██║   ██║   ██║   ██╔══╝  ██╔══██╗██║   ██║██║   ██║██╔═██╗ ╚════██║
+██║ ╚████║╚██████╔╝   ██║   ███████╗██████╔╝╚██████╔╝╚██████╔╝██║  ██╗███████║
+╚═╝  ╚═══╝ ╚═════╝    ╚═╝   ╚══════╝╚═════╝  ╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚══════╝
+"""
+
+
 
 """
 ███╗   ███╗ █████╗  ██████╗██╗  ██╗██╗███╗   ██╗███████╗        
