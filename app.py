@@ -26,6 +26,7 @@ import io
 # import seaborn
 # import sklearn
 
+from lxml import objectify
 
 # register hops app as middleware
 app = Flask(__name__)
@@ -5473,7 +5474,7 @@ def open_txt_stream4(file_path: str):
             listOut.append(observation)
         return listOut
 
-# # generating variations on image data
+# generating variations on image data
 
 # import matplotlib.image as image
 # import matplotlib.pyplot as plt
@@ -5579,22 +5580,264 @@ def open_txt_random2(file_path: str, prob: float):
 
 
 # Accessing Data in Structured Flat-File Form 
+# read_table() with pandas
+# read_csv() with pandas
+# read_excel() with pandas
+# read_json() with pandas
+# read_html() with pandas
+# read_sql() with pandas
+
+@hops.component(
+    "/read_table6",
+    description="Reads a table",
+    inputs=[
+        hs.HopsString("File path", "F", "File path", hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsString("Table", "T", "Table"),
+    ]
+)   
+def read_table6(file_path: str):
+    import pandas as pd
+    #listOut = []
+    color_table = pd.io.parsers.read_table(file_path)
+    print(color_table)
+    print(type(color_table))
+    #listOut.append(color_table)
+    return color_table
+# what to do with a df in grasshopper string output? SEE read_csv_list2
+
+# reading from a txt file
+@hops.component(
+    "/read_txt_file4D",
+    description="Reads a txt file",
+    inputs=[
+        hs.HopsString("File path", "F", "File path", hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsString("File content", "C", "File content"),
+    ]
+)
+def read_txt_file4D(file_path: str):
+    #listOut = []
+    color_table = pd.io.parsers.read_table(file_path)
+    print(color_table)
+    print(type(color_table))
+    #listOut.append(color_table)
+    return color_table
+
+# reading from a csv file
+@hops.component(
+    "/read_csv_list2",
+    description="Reads a csv file",
+    inputs=[
+        hs.HopsString("File path", "F", "File path", hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsString("File content", "C", "File content"),
+    ]
+)
+def read_csv_list2(file_path: str):
+    listOut = []
+    titanic = pd.io.parsers.read_csv(file_path)
+    #X = titanic[['age']]
+    # simply change to this to output at list!!!!
+    X = titanic[['age']].values
+    print(X)
+    print(type(X))
+    X.tolist()
+    print(X.tolist())
+    print(type(X.tolist()))
+    listOut.append(X.tolist())
+    return listOut
+
+@hops.component(
+    "/read_csv_list4",
+    description="Reads a csv file",
+    inputs=[
+        hs.HopsString("File path", "F", "File path", hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsString("File content", "C", "File content"),
+    ]
+)
+def read_csv_list4(file_path: str):
+    listOut = []
+    titanic = pd.io.parsers.read_csv(file_path)
+    #X = titanic[['age']]
+    # simply change to this to output at list!!!!
+    X = titanic['age'].values
+    print(X)
+    print(type(X))
+    X.tolist()
+    print(X.tolist())
+    print(type(X.tolist()))
+    listOut.append(X.tolist())
+    return listOut
+
+# need to get rid of the string "'s for the HopsNumber output 
+import xlrd
+# Reading Excel and other Microsoft Office files
+@hops.component(
+    "/read_excel_list",
+    description="Reads an excel file",
+    inputs=[
+        hs.HopsString("File path", "F", "File path", hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsString("File content", "C", "File content"),
+    ]
+)
+def read_excel_list(file_path: str):
+    listOut = []
+    xls = pd.ExcelFile(file_path)
+    trig_values = xls.parse('Sheet1', index_col=None, na_values=['NA']).values # creates an array of the values in the sheet
+    print(trig_values)
+    print(type(trig_values))
+    listOut.append(trig_values.tolist())
+    return listOut
+
+# Sending Data in Unstructured File Form
+# http://scipy-lectures.org/packages/scikit-image/
+# from skimage.io import imread
+# save for a later date
+
+#Managing Data from Relational Databases
+
+# SQL
+# The Structured Query Language:
+# from sqalchemy import create_engine
+# engine = create_engine('sqlite:///memory:')
+
+# read_sql_table(): read a table from a database
+# read_sql_query(): read a query from a database
+# read_sql_frame(): read a query from a database
+# read_sql(): read a query from a database
+# DataFrame.to_sql(): write a DataFrame to a SQL database
+
+# SQLite
+# MySQL
+# PostgreSQL
+# SQL Server
+# Other relational databases, such as Oracle, Microsoft SQL Server, etc.
+
+# Interacting with Data from NoSQL Databases
+# Other NoSQL databases, such as MongoDB, CouchDB, Redis, Cassandra, etc.
+# MongoDB relies heavily on find() method
+
+# Accessing Data from the Web
+# web services and APIs
+# jquery and other libraries
+
+# XML and HTML
+# XMLData.xml 
+# use XMLData.xml file in the book
+
+@hops.component(
+    "/XMLDataCopy",
+    description="XMLData.xml",
+    inputs=[
+        hs.HopsString("File path", "F", "File path", hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsString("XMLData.xml", "X", "XMLData.xml"),
+    ]
+)
+def XMLDataCopy(file_path: str):
+    from lxml import objectify
+    import pandas as pd
+
+    xml = objectify.parse(open(file_path))
+    root = xml.getroot()
+
+    df = pd.DataFrame(columns=['Number', 'String', 'Boolean'])
+    for i in range(0, 4):
+        obj = root.getchildren()[i].getchildren()
+        row = dict(zip(['Number', 'String', 'Boolean'], [obj[0].text, obj[1].text, obj[2].text]))
+        row_s = pd.Series(row)
+        row_s.name = i
+        df = df.append(row_s)
+       
+    print(df)
+    print(type(df))
+    return df
+
+
+@hops.component(
+    "/XMLDataCopy5",
+    description="XMLData.xml",
+    inputs=[
+        hs.HopsString("File path", "F", "File path", hs.HopsParamAccess.ITEM),
+    ],
+    outputs=[
+        hs.HopsString("XMLData.xml", "X", "XMLData.xml"),
+    ]
+)
+def XMLDataCopy5(file_path: str):
+    from lxml import objectify
+    import pandas as pd
+
+    xml = objectify.parse(open(file_path))
+    root = xml.getroot()
+
+    df = pd.DataFrame(columns=['Number', 'String', 'Boolean'])
+    for i in range(0, 4):
+        obj = root.getchildren()[i].getchildren()
+        row = dict(zip(['Number', 'String', 'Boolean'], [obj[0].text, obj[1].text, obj[2].text]))
+        row_s = pd.Series(row)
+        row_s.name = i
+        df = df.append(row_s)
+       
+    print(df)
+    print(type(df))
+    df = df.values
+    listOut = []
+    print(df)
+    print(type(df))
+    df.tolist()
+    print(df.tolist())
+    print(type(df.tolist()))
+    listOut.append(df.tolist())
+    print(listOut)
+    return listOut
+
+
+# JSON
+
+# Copnditioning your Data
+# numpy and pandas
+
+# It is all about the preparation of the data
+# get the data 
+# aggregate the data
+# create data subsets
+# clean the data
+# develop a single dataset by merging various datasets together
+
+# Validating Your Data
+
+# gh plugin for data science
+# Lunchbox plugin for data science
+
+
+
 
 """
-     ██╗██╗   ██╗██████╗ ██╗   ██╗████████╗███████╗██████╗                    
-     ██║██║   ██║██╔══██╗╚██╗ ██╔╝╚══██╔══╝██╔════╝██╔══██╗                   
-     ██║██║   ██║██████╔╝ ╚████╔╝    ██║   █████╗  ██████╔╝                   
-██   ██║██║   ██║██╔═══╝   ╚██╔╝     ██║   ██╔══╝  ██╔══██╗                   
-╚█████╔╝╚██████╔╝██║        ██║      ██║   ███████╗██║  ██║                   
- ╚════╝  ╚═════╝ ╚═╝        ╚═╝      ╚═╝   ╚══════╝╚═╝  ╚═╝                   
-                                                                              
-███╗   ██╗ ██████╗ ████████╗███████╗██████╗  ██████╗  ██████╗ ██╗  ██╗███████╗
-████╗  ██║██╔═══██╗╚══██╔══╝██╔════╝██╔══██╗██╔═══██╗██╔═══██╗██║ ██╔╝██╔════╝
-██╔██╗ ██║██║   ██║   ██║   █████╗  ██████╔╝██║   ██║██║   ██║█████╔╝ ███████╗
-██║╚██╗██║██║   ██║   ██║   ██╔══╝  ██╔══██╗██║   ██║██║   ██║██╔═██╗ ╚════██║
-██║ ╚████║╚██████╔╝   ██║   ███████╗██████╔╝╚██████╔╝╚██████╔╝██║  ██╗███████║
-╚═╝  ╚═══╝ ╚═════╝    ╚═╝   ╚══════╝╚═════╝  ╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚══════╝
+██╗     ██╗   ██╗███╗   ██╗ ██████╗██╗  ██╗██████╗  ██████╗ ██╗  ██╗
+██║     ██║   ██║████╗  ██║██╔════╝██║  ██║██╔══██╗██╔═══██╗╚██╗██╔╝
+██║     ██║   ██║██╔██╗ ██║██║     ███████║██████╔╝██║   ██║ ╚███╔╝ 
+██║     ██║   ██║██║╚██╗██║██║     ██╔══██║██╔══██╗██║   ██║ ██╔██╗ 
+███████╗╚██████╔╝██║ ╚████║╚██████╗██║  ██║██████╔╝╚██████╔╝██╔╝ ██╗
+╚══════╝ ╚═════╝ ╚═╝  ╚═══╝ ╚═════╝╚═╝  ╚═╝╚═════╝  ╚═════╝ ╚═╝  ╚═╝
+                                                                    
+██████╗ ██╗     ██╗   ██╗ ██████╗       ██╗███╗   ██╗               
+██╔══██╗██║     ██║   ██║██╔════╝       ██║████╗  ██║               
+██████╔╝██║     ██║   ██║██║  ███╗█████╗██║██╔██╗ ██║               
+██╔═══╝ ██║     ██║   ██║██║   ██║╚════╝██║██║╚██╗██║               
+██║     ███████╗╚██████╔╝╚██████╔╝      ██║██║ ╚████║               
+╚═╝     ╚══════╝ ╚═════╝  ╚═════╝       ╚═╝╚═╝  ╚═══╝ 
 """
+
 
 
 
